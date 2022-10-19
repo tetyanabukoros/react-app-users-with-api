@@ -1,0 +1,65 @@
+
+
+.userCard {
+  border-radius: 12px;
+}
+
+.userImage {
+  border-radius: 12px;
+  height: 85px;
+}
+
+.userName {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: -0.02em;
+  margin: 0;
+  margin: 0 0 2px 0;
+}
+
+.userBirth {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  color: #999;
+  margin: 0 0 2px 0;
+}
+
+.userInfo {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: -0.02em;
+  margin: 0 0 7px 0;
+}
+
+.editButton {
+  background-color: #52228C;
+}
+
+.title {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 40px;
+  letter-spacing: -0.02em;
+  color: #121212;
+}
+
+.inputName {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  color: #999;
+  margin: 0 0 7px 0;
+}
