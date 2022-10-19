@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-app-users-with-api/static/css/main.bc96eaee.css",
+    "main.js": "/react-app-users-with-api/static/js/main.d98aeade.js",
+    "index.html": "/react-app-users-with-api/index.html",
+    "main.bc96eaee.css.map": "/react-app-users-with-api/static/css/main.bc96eaee.css.map",
+    "main.d98aeade.js.map": "/react-app-users-with-api/static/js/main.d98aeade.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bc96eaee.css",
+    "static/js/main.d98aeade.js"
+  ]
+}
