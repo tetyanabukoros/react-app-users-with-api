@@ -6,6 +6,7 @@ import { Stack, Container, SelectChangeEvent } from '@mui/material';
 
 export const App = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [ageValue, setAgeValue] = useState<number[]>([20, 37]);
   const [male, setMale] = useState(false);
@@ -86,6 +87,7 @@ export const App = () => {
     fetch('https://randomuser.me/api/?results=50')
       .then((response) => response.json())
       .then((response) => setUsers(response.results))
+      .then(() => setLoading(false))
   }, [])
 
   return (
@@ -107,7 +109,7 @@ export const App = () => {
           select={select}
           handleChangeSelect={handleChangeSelect}
         />
-        <UsersList users={preparedUsers} />
+        <UsersList users={preparedUsers} loading={loading} />
       </Stack>
     </Container>
   )

@@ -5,9 +5,10 @@ import { UserCard } from './UserCard';
 
 type Props = {
   users: User[] | undefined;
+  loading: boolean;
 };
 
-export const UsersList: React.FC<Props> = ({ users }) => {
+export const UsersList: React.FC<Props> = ({ users, loading }) => {
   return (
     <div>
       <Typography
@@ -22,10 +23,18 @@ export const UsersList: React.FC<Props> = ({ users }) => {
       >
         List of users
       </Typography>
-      <Box sx={{minWidth: "650px"}}>
+      <Box sx={{ minWidth: "650px" }}>
         {!users?.length && (
-          <Paper sx={{ p: "50px", textAlign: "center"}}>
-            <h2 className="userInfo">There are no users with this request</h2>
+          <Paper sx={{
+            p: "50px",
+            textAlign: "center",
+            fontFamily: 'Work Sans',
+            fontWeight: "700"
+          }}>
+            {loading
+              ? <p>Loading...</p>
+              : <h2 className="userInfo">There are no users with this request</h2>
+            }
           </Paper>
         )}
         {users?.map(user => (
