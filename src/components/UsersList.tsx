@@ -47,11 +47,3 @@ export const UsersList: React.FC<Props> = ({ users, loading }) => {
     </div>
   );
 };
-
-// font-family: 'Work Sans';
-// font-style: normal;
-// font-weight: 700;
-// font-size: 34px;
-// line-height: 40px;
-// letter-spacing: -0.02em;
-// color: #121212;

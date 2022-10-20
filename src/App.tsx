@@ -3,15 +3,24 @@ import { User } from './types/User';
 import { UsersList } from './components/UsersList';
 import { FilterBlock } from './components/FilterBlock';
 import { Stack, Container, SelectChangeEvent } from '@mui/material';
+import { Pagination } from './components/Pagination';
 
 export const App = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(5);
   const [searchQuery, setSearchQuery] = useState('');
-  const [ageValue, setAgeValue] = useState<number[]>([20, 37]);
+  const [ageValue, setAgeValue] = useState<number[]>([20, 70]);
   const [male, setMale] = useState(false);
   const [female, setFemale] = useState(false);
   const [select, setSelect] = useState('');
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setSelect(event.target.value as string);
@@ -47,7 +56,7 @@ export const App = () => {
     ));
   };
 
-  const filteredUsers = filterUsers(users);
+  const filteredUsers = filterUsers(currentPosts);
 
   const sortUsers = (usersForSort: User[]) => {
     const getDateOfBirth = (date: string) => {
@@ -111,9 +120,13 @@ export const App = () => {
         />
         <UsersList users={preparedUsers} loading={loading} />
       </Stack>
+      <Pagination 
+        postsPerPage={postsPerPage} 
+        totalPosts={users.length}
+        paginate={paginate}
+      />
     </Container>
   )
-
 }
 
 export default App;
