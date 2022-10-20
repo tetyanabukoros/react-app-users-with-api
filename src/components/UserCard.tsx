@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Stack } from '@mui/material';
+import { Button, Paper, Stack } from '@mui/material';
 import React from 'react';
 import { User } from '../types/User';
 import './../styles/App.css';
@@ -58,12 +58,6 @@ export const UserCard: React.FC<Props> = ({ user }) => {
   return (
     <Paper className="userCard" sx={{ p: "24px", mb: "8px" }}>
       <div>
-      {/* <CardMedia
-        component="img"
-        // height="140"
-        image={user?.picture.medium}
-        alt={`${user.name.first} ${user.name.last}`}
-      /> */}
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="row" alignItems="center" spacing={2}>
           <div>

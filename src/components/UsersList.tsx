@@ -1,16 +1,16 @@
-import { Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { User } from '../types/User';
 import { UserCard } from './UserCard';
 
 type Props = {
-  users: User[];
+  users: User[] | undefined;
 };
 
 export const UsersList: React.FC<Props> = ({ users }) => {
   return (
     <div>
-      <Typography      
+      <Typography
         style={{
           fontFamily: 'Work Sans',
           fontWeight: "700",
@@ -22,12 +22,19 @@ export const UsersList: React.FC<Props> = ({ users }) => {
       >
         List of users
       </Typography>
-        {users.map(user => (
+      <Box sx={{minWidth: "650px"}}>
+        {!users?.length && (
+          <Paper sx={{ p: "50px", textAlign: "center"}}>
+            <h2 className="userInfo">There are no users with this request</h2>
+          </Paper>
+        )}
+        {users?.map(user => (
           <UserCard
             key={user.email}
             user={user}
           />
         ))}
+      </Box>
     </div>
   );
 };

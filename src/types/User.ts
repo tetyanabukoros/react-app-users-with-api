@@ -1,4 +1,5 @@
 export interface User {
+  [x: string]: any
   picture:{
     large: string,
     medium: string,
@@ -31,6 +32,5 @@ export interface User {
         date: string,
         age: number
       },
-      
-  
+  gender:"male" | "female"
 }

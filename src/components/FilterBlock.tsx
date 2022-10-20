@@ -1,32 +1,36 @@
 import { Box, Chip, FormControl, MenuItem, Paper, Select, SelectChangeEvent, Slider, Stack, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 
-export const FilterBlock = () => {
-  const [value, setValue] = useState<number[]>([20, 37]);
-  const [male, setMale] = useState(false);
-  const [female, setFemale] = useState(false);
+interface Props {
+  searchQuery: string;
+  setSearchQuery: (_: string) => void;
+  ageValue: number[];
+  handleChangeAgeValue: (event: Event, newValue: number | number[]) => void;
+  male: boolean;
+  female: boolean;
+  handleClickMale: () => void;
+  handleClickFemale: () => void;
+  select: string;
+  handleChangeSelect: (event: SelectChangeEvent) => void;
+}
 
-  const [select, setSelect] = useState<number>(10);
-
-  const handleChangeSelect = (event: SelectChangeEvent) => {
-    setSelect(+event.target.value as number);
-  };
+export const FilterBlock: React.FC<Props> = ( props ) => {
+  const {
+    searchQuery, 
+    setSearchQuery, 
+    ageValue, 
+    handleChangeAgeValue,
+    male,
+    female,
+    handleClickMale,
+    handleClickFemale,
+    select,
+    handleChangeSelect
+  } = props;
 
   function valuetext(value: number) {
-    return `${value}°C`;
+    return `${value}`;
   }
-
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
-  };
-
-  const handleClickMale = () => {
-    setMale(!male)
-  };
-
-  const handleClickFemale = () => {
-    setFemale(!female)
-  };
 
   return (
     <Box>
@@ -40,7 +44,7 @@ export const FilterBlock = () => {
           margin: "32px 0"
         }}
       >
-        Filter
+        Filter {select}
       </Typography>
       <Paper>
         <FormControl
@@ -59,7 +63,7 @@ export const FilterBlock = () => {
           >
             Name
           </Typography>
-          <TextField
+          <input
             style={{
               fontFamily: 'Poppins',
               fontWeight: "500",
@@ -68,11 +72,14 @@ export const FilterBlock = () => {
               color: "#999",
               border: "1px solid #121212",
               borderRadius: "12px",
-            }} 
-            id="outlined-basic" 
-            label="" 
-            placeholder="Search by name" 
-            variant="outlined" 
+              padding: "14px",
+              marginBottom: "24px"
+            }}
+            id="outlined-basic"
+            placeholder="Search by name"
+            type="text"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event?.target.value)}
           />
           <Typography
             style={{
@@ -88,8 +95,8 @@ export const FilterBlock = () => {
           </Typography>
           <Slider
             getAriaLabel={() => 'Temperature range'}
-            value={value}
-            onChange={handleChange}
+            value={ageValue}
+            onChange={handleChangeAgeValue}
             valueLabelDisplay="auto"
             getAriaValueText={valuetext}
           />
@@ -103,7 +110,7 @@ export const FilterBlock = () => {
               margin: "0 0 24px 0",
             }}
           >
-            {value[0]} - {value[1]}
+            {ageValue[0]} - {ageValue[1]}
           </Typography>
           <Typography
             style={{
@@ -142,9 +149,9 @@ export const FilterBlock = () => {
                 fontSize: "14px",
                 lineHeight: "21px",
               }}
-              label="Female" 
-              variant="outlined" 
-              onClick={handleClickFemale} 
+              label="Female"
+              variant="outlined"
+              onClick={handleClickFemale}
             />
           </Stack>
           <Typography
@@ -159,6 +166,28 @@ export const FilterBlock = () => {
           >
             Sort by
           </Typography>
+          {/* <select
+            style={{
+              fontFamily: 'Poppins',
+              fontWeight: "500",
+              fontSize: "16px",
+              lineHeight: "24px",
+              color: "#121212",
+              border: "1px solid #121212",
+              borderRadius: "12px",
+              padding: "14px",
+              marginBottom: "24px"
+            }}
+            name="select"
+            id="demo-simple-select"
+            value={select}
+            onChange={() => handleChangeSelect}
+          >
+            <option style={{ fontFamily: 'Poppins' }} value={10}>Name</option>
+            <option style={{ fontFamily: 'Poppins' }} value={20}>Date of birth</option>
+            <option style={{ fontFamily: 'Poppins' }} value={30}>City</option>
+            <option style={{ fontFamily: 'Poppins' }} value={40}>Custom sort</option>
+          </select> */}
           <Select
             style={{
               fontFamily: 'Poppins',
@@ -172,14 +201,13 @@ export const FilterBlock = () => {
             variant="outlined"
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={select.toString()}
-            // label="Age"
-            onChange={handleChangeSelect}
+            value={select}
+            onChange={(event) => handleChangeSelect(event)}
           >
-            <MenuItem style={{ fontFamily: 'Poppins'}} value={10}>Name</MenuItem>
-            <MenuItem style={{ fontFamily: 'Poppins'}} value={20}>Date of birth</MenuItem>
-            <MenuItem style={{ fontFamily: 'Poppins'}} value={30}>City</MenuItem>
-            <MenuItem style={{ fontFamily: 'Poppins'}} value={40}>Custom sort</MenuItem>
+            <MenuItem style={{ fontFamily: 'Poppins'}} value={'name'}>Name</MenuItem>
+            <MenuItem style={{ fontFamily: 'Poppins'}} value={'birth'}>Date of birth</MenuItem>
+            <MenuItem style={{ fontFamily: 'Poppins'}} value={'city'}>City</MenuItem>
+            <MenuItem style={{ fontFamily: 'Poppins'}} value={'custom'}>Custom sort</MenuItem>
           </Select>
         </FormControl>
       </Paper>
