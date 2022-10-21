@@ -1,26 +1,21 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AppContext } from './AppContext';
 
 type Props = {
-  postsPerPage: number;
   totalPosts: number;
   paginate: (pageNumber: number) => void
 };
 
 export const PaginationList: React.FC<Props> = ({ 
-  postsPerPage, 
   totalPosts,
   paginate
 }) => {
   const [page, setPage] = useState<number>(1)
   const pageNumbers = [];
 
-  const [postsPerPage1, setPostsPerPage1] = useState('50');
+  const { postsPerPage, setPostsPerPage } = useContext(AppContext);
 
-  const handleChangePostsPerPage = (event: ChangeEvent<HTMLSelectElement>) => {
-    setPostsPerPage1(event.target.value);
-  };
-
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalPosts / +postsPerPage); i++) {
     pageNumbers.push(i);
   }
 
@@ -54,7 +49,7 @@ export const PaginationList: React.FC<Props> = ({
         ))}
         <li className='paginationItem'>
           <button 
-            disabled={totalPosts / postsPerPage === page}
+            disabled={totalPosts / +postsPerPage === page}
             onClick={() => {
               setPage(prev => prev + 1)
               paginate(page);
@@ -68,13 +63,13 @@ export const PaginationList: React.FC<Props> = ({
           defaultValue={'50'} 
           id='select-posts-per-psge'
           className="paginationSelect"
-          value={postsPerPage1}
-          onChange={(event) => handleChangePostsPerPage(event)}
+          value={postsPerPage}
+          onChange={(event) => setPostsPerPage(event.target.value)}
         >
           <option value={'10'} className="paginationOption">10</option>
           <option value={'50'} className="paginationOption">50</option>
           <option value={'100'} className="paginationOption">100</option>
-          <option value={'all'} className="paginationOption">All</option>
+          <option value={'500'} className="paginationOption">All</option>
         </select>
       </ul>
     </nav>

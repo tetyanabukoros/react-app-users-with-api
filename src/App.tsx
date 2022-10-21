@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { User } from './types/User';
 import { UsersList } from './components/UsersList';
 import { FilterBlock } from './components/FilterBlock';
 import { Stack, Container, SelectChangeEvent } from '@mui/material';
+import { AppContext } from './components/AppContext';
 
 export const App = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [ageValue, setAgeValue] = useState<number[]>([20, 70]);
   const [male, setMale] = useState(false);
   const [female, setFemale] = useState(false);
   const [select, setSelect] = useState('');
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const { postsPerPage } = useContext(AppContext);
+
+  const indexOfLastPost = currentPage * +postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - +postsPerPage;
   const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -120,7 +122,6 @@ export const App = () => {
         <UsersList
           users={preparedUsers}
           loading={loading}
-          postsPerPage={postsPerPage}
           totalPosts={users.length}
           paginate={paginate}
         />

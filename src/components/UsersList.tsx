@@ -7,12 +7,11 @@ import { UserCard } from './UserCard';
 type Props = {
   users: User[] | undefined;
   loading: boolean;
-  postsPerPage: number;
   totalPosts: number;
   paginate: (pageNumber: number) => void
 };
 
-export const UsersList: React.FC<Props> = ({ users, loading, postsPerPage, totalPosts, paginate }) => {
+export const UsersList: React.FC<Props> = ({ users, loading, totalPosts, paginate }) => {
   return (
     <div>
       <Typography
@@ -49,7 +48,6 @@ export const UsersList: React.FC<Props> = ({ users, loading, postsPerPage, total
         ))}
       </Box>
       <PaginationList
-        postsPerPage={postsPerPage}
         totalPosts={totalPosts}
         paginate={paginate}
       />
