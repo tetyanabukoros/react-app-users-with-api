@@ -1,4 +1,4 @@
-import { Box, Chip, FormControl, MenuItem, Paper, Select, SelectChangeEvent, Slider, Stack, TextField, Typography } from '@mui/material';
+import { Box, Chip, FormControl, MenuItem, Paper, Select, SelectChangeEvent, Slider, Stack, Typography } from '@mui/material';
 import React from 'react';
 
 interface Props {
@@ -194,8 +194,8 @@ export const FilterBlock: React.FC<Props> = ( props ) => {
               fontWeight: "500",
               fontSize: "16px",
               lineHeight: "24px",
-              color: "#121212",
-              border: "1px solid #121212",
+              color: "#121212",    
+              outline: "1px solid #121212",
               borderRadius: "12px",
             }}
             variant="outlined"

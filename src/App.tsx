@@ -3,13 +3,12 @@ import { User } from './types/User';
 import { UsersList } from './components/UsersList';
 import { FilterBlock } from './components/FilterBlock';
 import { Stack, Container, SelectChangeEvent } from '@mui/material';
-import { Pagination } from './components/Pagination';
 
 export const App = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(5);
+  const [postsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [ageValue, setAgeValue] = useState<number[]>([20, 70]);
   const [male, setMale] = useState(false);
@@ -93,7 +92,7 @@ export const App = () => {
   const preparedUsers = sortByUserSex(sorteredFilteredUsers);
 
   useEffect(() => {
-    fetch('https://randomuser.me/api/?results=50')
+    fetch('https://randomuser.me/api/?results=100')
       .then((response) => response.json())
       .then((response) => setUsers(response.results))
       .then(() => setLoading(false))
@@ -118,13 +117,14 @@ export const App = () => {
           select={select}
           handleChangeSelect={handleChangeSelect}
         />
-        <UsersList users={preparedUsers} loading={loading} />
+        <UsersList
+          users={preparedUsers}
+          loading={loading}
+          postsPerPage={postsPerPage}
+          totalPosts={users.length}
+          paginate={paginate}
+        />
       </Stack>
-      <Pagination 
-        postsPerPage={postsPerPage} 
-        totalPosts={users.length}
-        paginate={paginate}
-      />
     </Container>
   )
 }

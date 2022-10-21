@@ -1,14 +1,18 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Stack, Typography, Pagination } from '@mui/material';
 import React from 'react';
 import { User } from '../types/User';
+import { PaginationList } from './PaginationList';
 import { UserCard } from './UserCard';
 
 type Props = {
   users: User[] | undefined;
   loading: boolean;
+  postsPerPage: number;
+  totalPosts: number;
+  paginate: (pageNumber: number) => void
 };
 
-export const UsersList: React.FC<Props> = ({ users, loading }) => {
+export const UsersList: React.FC<Props> = ({ users, loading, postsPerPage, totalPosts, paginate }) => {
   return (
     <div>
       <Typography
@@ -44,6 +48,11 @@ export const UsersList: React.FC<Props> = ({ users, loading }) => {
           />
         ))}
       </Box>
+      <PaginationList
+        postsPerPage={postsPerPage}
+        totalPosts={totalPosts}
+        paginate={paginate}
+      />
     </div>
   );
 };
