@@ -44,7 +44,7 @@ export const FilterBlock: React.FC<Props> = ( props ) => {
           margin: "32px 0"
         }}
       >
-        Filter {select}
+        Filter
       </Typography>
       <Paper>
         <FormControl
@@ -201,6 +201,7 @@ export const FilterBlock: React.FC<Props> = ( props ) => {
             variant="outlined"
             labelId="demo-simple-select-label"
             id="demo-simple-select"
+            defaultValue={'name'}
             value={select}
             onChange={(event) => handleChangeSelect(event)}
           >

@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography, Pagination } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { User } from '../types/User';
 import { PaginationList } from './PaginationList';
