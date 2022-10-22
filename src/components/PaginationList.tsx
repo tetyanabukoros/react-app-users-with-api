@@ -12,11 +12,14 @@ export const PaginationList: React.FC<Props> = ({
 }) => {
   const [page, setPage] = useState<number>(1)
   const pageNumbers = [];
+  console.log(page)
 
   const { postsPerPage, setPostsPerPage } = useContext(AppContext);
 
   for (let i = 1; i <= Math.ceil(totalPosts / +postsPerPage); i++) {
-    pageNumbers.push(i);
+     if (pageNumbers.length < 10) {
+      pageNumbers.push(i);
+    }
   }
 
   return (
@@ -64,7 +67,10 @@ export const PaginationList: React.FC<Props> = ({
           id='select-posts-per-psge'
           className="paginationSelect"
           value={postsPerPage}
-          onChange={(event) => setPostsPerPage(event.target.value)}
+          onChange={(event) => {
+            setPostsPerPage(event.target.value);
+            paginate(1);
+          }}
         >
           <option value={'10'} className="paginationOption">10</option>
           <option value={'50'} className="paginationOption">50</option>
