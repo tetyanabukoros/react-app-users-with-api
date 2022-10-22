@@ -1,12 +1,16 @@
 import { Button, Paper, Stack } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { User } from '../types/User';
 import './../styles/App.css';
+import { AppContext } from './AppContext';
+import { EditModal } from './EditModal';
+
 type Props = {
-  user: User,
+  user: User;
+  handleDeleteUser: (selectedUserEmail: string) => void;
 };
 
-const getBirthdayFormat = (data: string) => {
+export const getBirthdayFormat = (data: string) => {
   const day = data.slice(8, 10);
   const monthNumber = data.slice(5, 7)
   let month = ''
@@ -33,7 +37,7 @@ const getBirthdayFormat = (data: string) => {
       month = 'July';
       break;
     case "08":
-      month = 'Augus';
+      month = 'August';
       break;
     case "09":
       month = 'September';
@@ -54,43 +58,60 @@ const getBirthdayFormat = (data: string) => {
   return `${day} ${month} ${year}`
 }
 
-export const UserCard: React.FC<Props> = ({ user }) => {
+export const UserCard: React.FC<Props> = ({ user, handleDeleteUser }) => {
+  const { setSelectedUserEmail } = useContext(AppContext);
+  const [openEditForm, setOpenEditForm] = React.useState(false);
+  const handleOpenEditForm = () => setOpenEditForm(true);
+  const handleCloseEditForm = () => setOpenEditForm(false);
+
   return (
     <Paper className="userCard" sx={{ p: "24px", mb: "8px" }}>
       <div>
-      <Stack direction="row" justifyContent="space-between">
-        <Stack direction="row" alignItems="center" spacing={2}>
-          <div>
-            <img
-              className="userImage"
-              src={user?.picture.large}
-              alt={`${user.name.first} ${user.name.last}`}
-            />
-          </div>
+        <Stack direction="row" justifyContent="space-between">
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <div>
+              <img
+                className="userImage"
+                src={user?.picture.large}
+                alt={`${user.name.first} ${user.name.last}`}
+              />
+            </div>
 
-          <Stack direction="column" justifyContent="space-between">
-            <h2 className="userName">{user.name.first} {user.name.last}</h2>
-            <p className="userBirth">{getBirthdayFormat(user.dob.date)}</p>
-            <p className="userInfo">{user.location.city}, {user.location.street.name} {user.location.street.number}</p>
-            <p className="userInfo">{user.email}</p>
+            <Stack direction="column" justifyContent="space-between">
+              <h2 className="userName">{user.name.first} {user.name.last}</h2>
+              <p className="userBirth">{getBirthdayFormat(user.dob.date)}</p>
+              <p className="userInfo">{user.location.city}, {user.location.street.name} {user.location.street.number}</p>
+              <p className="userInfo">{user.email}</p>
+            </Stack>
           </Stack>
+          <Button
+            style={{
+              backgroundColor: "#52228C",
+              fontFamily: 'Poppins',
+              textTransform: 'none',
+              padding: "12px 57px",
+              height: "48px",
+              fontSize: "16px",
+              alignSelf: "end",
+              borderRadius: "12px"
+            }}
+            variant="contained"
+            onClick={() => {
+              setSelectedUserEmail(user.email);
+              handleOpenEditForm();
+            }}
+          >
+            Edit
+          </Button>
         </Stack>
-        <Button
-          style={{
-            backgroundColor: "#52228C",
-            fontFamily: 'Poppins',
-            textTransform: 'none',
-            padding: "12px 57px",
-            height: "48px",
-            alignSelf: "end"
-          }}
-          // className="editButton"
-          variant="contained"
-        >
-          Edit
-        </Button>
-      </Stack>
-
+      </div>
+      <div>
+        <EditModal 
+          openEditForm={openEditForm}
+          handleCloseEditForm={handleCloseEditForm}
+          user={user}
+          handleDeleteUser={handleDeleteUser}
+        />
       </div>
     </Paper>
   );

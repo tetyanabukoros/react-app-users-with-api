@@ -14,10 +14,14 @@ export const App = () => {
   const [male, setMale] = useState(false);
   const [female, setFemale] = useState(false);
   const [select, setSelect] = useState('');
-  const [page, setPage] = useState<number>(1)
+  const [page, setPage] = useState<number>(1);
 
   const { postsPerPage } = useContext(AppContext);
 
+  const handleDeleteUser = (selectedUserEmail: string) => {
+    setUsers((prev: User[]) => (prev.filter(el => el.email !== selectedUserEmail)))
+  }
+  
   const indexOfLastPost = currentPage * +postsPerPage;
   const indexOfFirstPost = indexOfLastPost - +postsPerPage;
   const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
@@ -97,7 +101,7 @@ export const App = () => {
   useEffect(() => {
 
     const getUsers = () => {
-      fetch(`https://randomuser.me/api/?results=500&nat=ua`)
+      fetch(`https://randomuser.me/api/?results=500&nat=ua&seed=foobar`)
         .then((response) => response.json())
         .then((response) => setUsers(response.results))
         .then(() => setLoading(false))
@@ -132,6 +136,7 @@ export const App = () => {
           paginate={paginate}
           page={page}
           setPage={setPage}
+          handleDeleteUser={handleDeleteUser}
         />
       </Stack>
     </Container>

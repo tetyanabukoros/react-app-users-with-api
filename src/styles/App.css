@@ -38,10 +38,6 @@
   margin: 0 0 7px 0;
 }
 
-.editButton {
-  background-color: #52228C;
-}
-
 .title {
   font-family: 'Work Sans';
   font-style: normal;
@@ -126,4 +122,19 @@
 
 .usersContainer::-webkit-scrollbar {
   display: none;
+}
+
+.modalInputStyle {
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #999;
+  border: 1px solid #121212;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  padding: 14px;
+  width: 307px;
+  height: 52px;
+  box-sizing: border-box;
 }

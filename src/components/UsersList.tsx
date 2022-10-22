@@ -11,9 +11,10 @@ type Props = {
   paginate: (pageNumber: number) => void;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  handleDeleteUser: (selectedUserEmail: string) => void;
 };
 
-export const UsersList: React.FC<Props> = ({ users, loading, totalPosts, paginate, page, setPage }) => {
+export const UsersList: React.FC<Props> = ({ users, loading, totalPosts, paginate, page, setPage, handleDeleteUser }) => {
   return (
     <div>
       <Typography
@@ -47,6 +48,7 @@ export const UsersList: React.FC<Props> = ({ users, loading, totalPosts, paginat
             <UserCard
               key={user.email}
               user={user}
+              handleDeleteUser={handleDeleteUser}
             />
           ))}
         </Box>

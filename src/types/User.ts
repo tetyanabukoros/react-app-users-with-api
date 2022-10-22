@@ -32,5 +32,6 @@ export interface User {
         date: string,
         age: number
       },
-  gender:"male" | "female"
+  gender:"male" | "female",
+  phone: string,
 }
