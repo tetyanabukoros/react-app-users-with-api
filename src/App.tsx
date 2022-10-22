@@ -14,8 +14,8 @@ export const App = () => {
   const [male, setMale] = useState(false);
   const [female, setFemale] = useState(false);
   const [select, setSelect] = useState('');
+  const [page, setPage] = useState<number>(1)
 
-  
   const { postsPerPage } = useContext(AppContext);
 
   const indexOfLastPost = currentPage * +postsPerPage;
@@ -95,10 +95,15 @@ export const App = () => {
   const preparedUsers = sortByUserSex(sorteredFilteredUsers);
 
   useEffect(() => {
-    fetch(`https://randomuser.me/api/?results=500&nat=ua`)
-      .then((response) => response.json())
-      .then((response) => setUsers(response.results))
-      .then(() => setLoading(false))
+
+    const getUsers = () => {
+      fetch(`https://randomuser.me/api/?results=500&nat=ua`)
+        .then((response) => response.json())
+        .then((response) => setUsers(response.results))
+        .then(() => setLoading(false))
+    }
+
+    getUsers();
   }, [])
 
   return (
@@ -125,6 +130,8 @@ export const App = () => {
           loading={loading}
           totalPosts={users.length}
           paginate={paginate}
+          page={page}
+          setPage={setPage}
         />
       </Stack>
     </Container>

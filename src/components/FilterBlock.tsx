@@ -14,11 +14,11 @@ interface Props {
   handleChangeSelect: (event: SelectChangeEvent) => void;
 }
 
-export const FilterBlock: React.FC<Props> = ( props ) => {
+export const FilterBlock: React.FC<Props> = (props) => {
   const {
-    searchQuery, 
-    setSearchQuery, 
-    ageValue, 
+    searchQuery,
+    setSearchQuery,
+    ageValue,
     handleChangeAgeValue,
     male,
     female,
@@ -33,7 +33,7 @@ export const FilterBlock: React.FC<Props> = ( props ) => {
   }
 
   return (
-    <Box>
+    <Box mr={8}>
       <Typography
         style={{
           fontFamily: 'Work Sans',
@@ -194,7 +194,7 @@ export const FilterBlock: React.FC<Props> = ( props ) => {
               fontWeight: "500",
               fontSize: "16px",
               lineHeight: "24px",
-              color: "#121212",    
+              color: "#121212",
               outline: "1px solid #121212",
               borderRadius: "12px",
             }}
@@ -205,10 +205,10 @@ export const FilterBlock: React.FC<Props> = ( props ) => {
             value={select}
             onChange={(event) => handleChangeSelect(event)}
           >
-            <MenuItem style={{ fontFamily: 'Poppins'}} value={'name'}>Name</MenuItem>
-            <MenuItem style={{ fontFamily: 'Poppins'}} value={'birth'}>Date of birth</MenuItem>
-            <MenuItem style={{ fontFamily: 'Poppins'}} value={'city'}>City</MenuItem>
-            <MenuItem style={{ fontFamily: 'Poppins'}} value={'custom'}>Custom sort</MenuItem>
+            <MenuItem style={{ fontFamily: 'Poppins' }} value={'name'}>Name</MenuItem>
+            <MenuItem style={{ fontFamily: 'Poppins' }} value={'birth'}>Date of birth</MenuItem>
+            <MenuItem style={{ fontFamily: 'Poppins' }} value={'city'}>City</MenuItem>
+            <MenuItem style={{ fontFamily: 'Poppins' }} value={'custom'}>Custom sort</MenuItem>
           </Select>
         </FormControl>
       </Paper>

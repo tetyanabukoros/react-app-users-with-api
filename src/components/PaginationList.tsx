@@ -1,18 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, Dispatch, SetStateAction } from 'react';
 import { AppContext } from './AppContext';
 
 type Props = {
   totalPosts: number;
-  paginate: (pageNumber: number) => void
+  paginate: (pageNumber: number) => void;
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
 };
 
 export const PaginationList: React.FC<Props> = ({ 
   totalPosts,
-  paginate
+  paginate,
+  page,
+  setPage
 }) => {
-  const [page, setPage] = useState<number>(1)
   const pageNumbers = [];
-  console.log(page)
 
   const { postsPerPage, setPostsPerPage } = useContext(AppContext);
 
@@ -29,7 +31,7 @@ export const PaginationList: React.FC<Props> = ({
         <button 
           disabled={page === 1}
           onClick={() => {
-            setPage(prev => prev - 1)
+            setPage((prev) => prev - 1)
             paginate(page);
           }}
           className='paginationButton'
