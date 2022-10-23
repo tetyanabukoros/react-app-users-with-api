@@ -14,33 +14,27 @@ type Props = {
   handleDeleteUser: (selectedUserEmail: string) => void;
 };
 
-export const UsersList: React.FC<Props> = ({ users, loading, totalPosts, paginate, page, setPage, handleDeleteUser }) => {
+export const UsersList: React.FC<Props> = (props) => {
+  const { users, loading, totalPosts, paginate, page, setPage, handleDeleteUser } = props;
+
   return (
     <div>
-      <Typography
-        style={{
-          fontFamily: 'Work Sans',
-          fontWeight: "700",
-          fontSize: "34px",
-          lineHeight: "40px",
-          color: "#121212",
-          margin: "32px 0"
-        }}
-      >
+      <h2 className='usersList__title'>
         List of users
-      </Typography>
-      <div className="usersContainer">
+      </h2>
+      <div className="usersList__container">
         <Box sx={{ minWidth: "650px" }}>
           {!users?.length && (
             <Paper sx={{
               p: "50px",
               textAlign: "center",
               fontFamily: 'Work Sans',
-              fontWeight: "700"
+              fontWeight: "700",
+              borderRadius: "12px" 
             }}>
               {loading
                 ? <p>Loading...</p>
-                : <h2 className="userInfo">There are no users with this request</h2>
+                : <h2 className="usersList__info">There are no users with this request</h2>
               }
             </Paper>
           )}

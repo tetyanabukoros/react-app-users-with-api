@@ -1,7 +1,7 @@
 import { Button, Paper, Stack } from '@mui/material';
 import React, { useContext } from 'react';
 import { User } from '../types/User';
-import './../styles/App.css';
+import './../styles/App.scss';
 import { AppContext } from './AppContext';
 import { EditModal } from './EditModal';
 
@@ -63,25 +63,27 @@ export const UserCard: React.FC<Props> = ({ user, handleDeleteUser }) => {
   const [openEditForm, setOpenEditForm] = React.useState(false);
   const handleOpenEditForm = () => setOpenEditForm(true);
   const handleCloseEditForm = () => setOpenEditForm(false);
+  const { street, city } = user.location;
+  const { first, last } = user.name;
 
   return (
-    <Paper className="userCard" sx={{ p: "24px", mb: "8px" }}>
+    <Paper sx={{ p: "24px", mb: "8px", borderRadius: "12px" }}>
       <div>
         <Stack direction="row" justifyContent="space-between">
           <Stack direction="row" alignItems="center" spacing={2}>
             <div>
               <img
-                className="userImage"
+                className="usersList__image"
                 src={user?.picture.large}
-                alt={`${user.name.first} ${user.name.last}`}
+                alt={`${first} ${last}`}
               />
             </div>
 
             <Stack direction="column" justifyContent="space-between">
-              <h2 className="userName">{user.name.first} {user.name.last}</h2>
-              <p className="userBirth">{getBirthdayFormat(user.dob.date)}</p>
-              <p className="userInfo">{user.location.city}, {user.location.street.name} {user.location.street.number}</p>
-              <p className="userInfo">{user.email}</p>
+              <h2 className="usersList__name">{first} {last}</h2>
+              <p className="usersList__birth">{getBirthdayFormat(user.dob.date)}</p>
+              <p className="usersList__info">{city}, {street.name} {street.number}</p>
+              <p className="usersList__info">{user.email}</p>
             </Stack>
           </Stack>
           <Button

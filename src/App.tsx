@@ -114,7 +114,6 @@ export const App = () => {
     <Container maxWidth="lg">
       <Stack
         direction="row"
-        spacing={2}
         justifyContent="center"
       >
         <FilterBlock

@@ -1,5 +1,15 @@
-import { Box, Chip, FormControl, MenuItem, Paper, Select, SelectChangeEvent, Slider, Stack, Typography } from '@mui/material';
-import React from 'react';
+import React from "react";
+import {
+  Box,
+  Chip,
+  FormControl,
+  MenuItem,
+  Paper,
+  Select,
+  SelectChangeEvent,
+  Slider,
+  Stack,
+} from "@mui/material";
 
 interface Props {
   searchQuery: string;
@@ -33,104 +43,51 @@ export const FilterBlock: React.FC<Props> = (props) => {
   }
 
   return (
-    <Box mr={8}>
-      <Typography
-        style={{
-          fontFamily: 'Work Sans',
-          fontWeight: "700",
-          fontSize: "34px",
-          lineHeight: "40px",
-          color: "#121212",
-          margin: "32px 0"
-        }}
-      >
-        Filter
-      </Typography>
+    <Box mr={8.5}>
+      <h2 className="filterBlock__title">Filter</h2>
       <Paper>
         <FormControl
           variant="standard"
           style={{ padding: "27px" }}
         >
-          <Typography
-            style={{
-              fontFamily: 'Poppins',
-              fontWeight: "500",
-              fontSize: "12px",
-              lineHeight: "18px",
-              color: "#999",
-              margin: "0 0 7px 0",
-            }}
+          <p
+            className="filterBlock__label filterBlock__label-name"
           >
             Name
-          </Typography>
+          </p>
           <input
-            style={{
-              fontFamily: 'Poppins',
-              fontWeight: "500",
-              fontSize: "16px",
-              lineHeight: "24px",
-              color: "#999",
-              border: "1px solid #121212",
-              borderRadius: "12px",
-              padding: "14px",
-              marginBottom: "24px"
-            }}
+            className="filterBlock__input"
             id="outlined-basic"
             placeholder="Search by name"
             type="text"
             value={searchQuery}
             onChange={(event) => setSearchQuery(event?.target.value)}
           />
-          <Typography
-            style={{
-              fontFamily: 'Poppins',
-              fontWeight: "500",
-              fontSize: "12px",
-              lineHeight: "18px",
-              color: "#999",
-              margin: "0 0 16px 0",
-            }}
+          <p
+            className="filterBlock__label filterBlock__label-age"
           >
             Age
-          </Typography>
+          </p>
           <Slider
-            getAriaLabel={() => 'Temperature range'}
+            getAriaLabel={() => "Age range"}
             value={ageValue}
             onChange={handleChangeAgeValue}
             valueLabelDisplay="auto"
             getAriaValueText={valuetext}
           />
-          <Typography
-            style={{
-              fontFamily: 'Poppins',
-              fontWeight: "500",
-              fontSize: "14px",
-              lineHeight: "21px",
-              color: "#333",
-              margin: "0 0 24px 0",
-            }}
-          >
+          <p className="filterBlock__rangeTitle">
             {ageValue[0]} - {ageValue[1]}
-          </Typography>
-          <Typography
-            style={{
-              fontFamily: 'Poppins',
-              fontWeight: "500",
-              fontSize: "12px",
-              lineHeight: "18px",
-              color: "#999",
-              margin: "0 0 16px 0",
-            }}
-          >
+          </p>
+          <p className="filterBlock__label filterBlock__label-gender">
             Gender
-          </Typography>
-          <Stack mb={4} direction="row" spacing={1}>
+          </p>
+          <Stack mb={3} direction="row" spacing={3}>
             <Chip
               sx={{
                 color: male ? "#52228C" : "#333",
                 border: male ? "1px solid #52228C" : "1px solid #121212",
                 backgroundColor: male ? "#ECD3FA" : "FFF",
-                fontFamily: 'Poppins',
+                fontFamily: "Poppins",
                 fontWeight: "500",
                 fontSize: "14px",
                 lineHeight: "21px",
@@ -144,7 +101,7 @@ export const FilterBlock: React.FC<Props> = (props) => {
                 color: female ? "#52228C" : "#333",
                 border: female ? "1px solid #52228C" : "1px solid #121212",
                 backgroundColor: female ? "#ECD3FA" : "FFF",
-                fontFamily: 'Poppins',
+                fontFamily: "Poppins",
                 fontWeight: "500",
                 fontSize: "14px",
                 lineHeight: "21px",
@@ -154,43 +111,12 @@ export const FilterBlock: React.FC<Props> = (props) => {
               onClick={handleClickFemale}
             />
           </Stack>
-          <Typography
-            style={{
-              fontFamily: 'Poppins',
-              fontWeight: "500",
-              fontSize: "12px",
-              lineHeight: "18px",
-              color: "#999",
-              margin: "0 0 16px 0",
-            }}
-          >
+          <p className="filterBlock__label filterBlock__label-sort">
             Sort by
-          </Typography>
-          {/* <select
-            style={{
-              fontFamily: 'Poppins',
-              fontWeight: "500",
-              fontSize: "16px",
-              lineHeight: "24px",
-              color: "#121212",
-              border: "1px solid #121212",
-              borderRadius: "12px",
-              padding: "14px",
-              marginBottom: "24px"
-            }}
-            name="select"
-            id="demo-simple-select"
-            value={select}
-            onChange={() => handleChangeSelect}
-          >
-            <option style={{ fontFamily: 'Poppins' }} value={10}>Name</option>
-            <option style={{ fontFamily: 'Poppins' }} value={20}>Date of birth</option>
-            <option style={{ fontFamily: 'Poppins' }} value={30}>City</option>
-            <option style={{ fontFamily: 'Poppins' }} value={40}>Custom sort</option>
-          </select> */}
+          </p>
           <Select
             style={{
-              fontFamily: 'Poppins',
+              fontFamily: "Poppins",
               fontWeight: "500",
               fontSize: "16px",
               lineHeight: "24px",
@@ -201,14 +127,34 @@ export const FilterBlock: React.FC<Props> = (props) => {
             variant="outlined"
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            defaultValue={'name'}
+            defaultValue={"name"}
             value={select}
             onChange={(event) => handleChangeSelect(event)}
           >
-            <MenuItem style={{ fontFamily: 'Poppins' }} value={'name'}>Name</MenuItem>
-            <MenuItem style={{ fontFamily: 'Poppins' }} value={'birth'}>Date of birth</MenuItem>
-            <MenuItem style={{ fontFamily: 'Poppins' }} value={'city'}>City</MenuItem>
-            <MenuItem style={{ fontFamily: 'Poppins' }} value={'custom'}>Custom sort</MenuItem>
+            <MenuItem
+              style={{ fontFamily: "Poppins" }}
+              value={"name"}
+            >
+              Name
+            </MenuItem>
+            <MenuItem
+              style={{ fontFamily: "Poppins" }}
+              value={"birth"}
+            >
+              Date of birth
+            </MenuItem>
+            <MenuItem
+              style={{ fontFamily: "Poppins" }}
+              value={"city"}
+            >
+              City
+            </MenuItem>
+            <MenuItem
+              style={{ fontFamily: "Poppins" }}
+              value={"custom"}
+            >
+              Custom sort
+            </MenuItem>
           </Select>
         </FormControl>
       </Paper>
