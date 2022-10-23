@@ -1,4 +1,4 @@
-import { Button, Paper, Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import React, { useContext } from 'react';
 import { User } from '../types/User';
 import './../styles/App.scss';
@@ -67,7 +67,10 @@ export const UserCard: React.FC<Props> = ({ user, handleDeleteUser }) => {
   const { first, last } = user.name;
 
   return (
-    <Paper sx={{ p: "24px", mb: "8px", borderRadius: "12px" }}>
+    <div 
+      className="userCard" 
+      draggable={true}
+    >
       <div>
         <Stack direction="row" justifyContent="space-between">
           <Stack direction="row" alignItems="center" spacing={2}>
@@ -108,13 +111,13 @@ export const UserCard: React.FC<Props> = ({ user, handleDeleteUser }) => {
         </Stack>
       </div>
       <div>
-        <EditModal 
+        <EditModal
           openEditForm={openEditForm}
           handleCloseEditForm={handleCloseEditForm}
           user={user}
           handleDeleteUser={handleDeleteUser}
         />
       </div>
-    </Paper>
+    </div>
   );
 };

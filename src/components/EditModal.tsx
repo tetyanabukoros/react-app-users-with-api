@@ -74,7 +74,7 @@ export const EditModal: React.FC<Props> = (props) => {
             <Stack direction="row">
               <input
                 className="modal__input"
-                placeholder={`${first} ${last}`}
+                value={`${first} ${last}`}
                 type="text"
               />
               <Button
@@ -98,7 +98,7 @@ export const EditModal: React.FC<Props> = (props) => {
             <Stack direction="row">
               <input
                 className="modal__input"
-                placeholder={user.email}
+                value={user.email}
                 type="text"
               />
               <Button
@@ -122,7 +122,7 @@ export const EditModal: React.FC<Props> = (props) => {
             <Stack direction="row">
               <input
                 className="modal__input"
-                placeholder={`+38${phone.slice(1, 4)}0${phone.slice(7, 9)}${phone.slice(10, 14)}`}
+                value={`+38${phone.slice(1, 4)}0${phone.slice(7, 9)}${phone.slice(10, 14)}`}
                 type="text"
               />
               <Button
@@ -146,7 +146,7 @@ export const EditModal: React.FC<Props> = (props) => {
             <Stack direction="row">
               <input
                 className="modal__input"
-                placeholder={user.location.city}
+                value={user.location.city}
                 type="text"
               />
               <Button
@@ -170,7 +170,7 @@ export const EditModal: React.FC<Props> = (props) => {
             <Stack direction="row">
               <input
                 className="modal__input"
-                placeholder={`${name} ${number}`}
+                value={`${name} ${number}`}
                 type="text"
               />
               <Button
@@ -194,7 +194,7 @@ export const EditModal: React.FC<Props> = (props) => {
             <Stack direction="row">
               <input
                 className="modal__input"
-                placeholder={`${date.slice(8, 10)}.${date.slice(5, 7)}.${date.slice(0, 4)}`}
+                value={`${date.slice(8, 10)}.${date.slice(5, 7)}.${date.slice(0, 4)}`}
                 type="text"
               />
               <Button

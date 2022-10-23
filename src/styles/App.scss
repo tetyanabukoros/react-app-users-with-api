@@ -164,7 +164,6 @@
   }
 }
 
-
 .modal {
   &__input {
     font-family: 'Poppins';
@@ -211,4 +210,12 @@
     color: #999999;
     margin: 1px 0 3px 0;
   }
+}
+
+.userCard {
+  padding: 24px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  cursor: grab;
+  border: 1px solid #E5E5E5 ;
 }

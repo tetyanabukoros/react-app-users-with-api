@@ -21,7 +21,7 @@ export const App = () => {
   const handleDeleteUser = (selectedUserEmail: string) => {
     setUsers((prev: User[]) => (prev.filter(el => el.email !== selectedUserEmail)))
   }
-  
+
   const indexOfLastPost = currentPage * +postsPerPage;
   const indexOfFirstPost = indexOfLastPost - +postsPerPage;
   const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
@@ -97,6 +97,15 @@ export const App = () => {
   }
 
   const preparedUsers = sortByUserSex(sorteredFilteredUsers);
+  const preparedUsersWithId = preparedUsers.map((item, index) => {
+    console.log(index)
+    return {
+      userId: index + 1, 
+      ...item
+    }
+  })
+
+  console.log(preparedUsersWithId)
 
   useEffect(() => {
 
