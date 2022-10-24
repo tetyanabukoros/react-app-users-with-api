@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 import { User } from './types/User';
 import { UsersList } from './components/UsersList';
 import { FilterBlock } from './components/FilterBlock';
@@ -18,19 +18,16 @@ export const App = () => {
 
   const { postsPerPage } = useContext(AppContext);
 
-  const handleDeleteUser = (selectedUserEmail: string) => {
-    setUsers((prev: User[]) => (prev.filter(el => el.email !== selectedUserEmail)))
+  const handleDeleteUser = (userId: string) => {
+    setUsers((prev: User[]) => (prev.filter(el => el.login.uuid !== userId)))
   }
 
-  const handleRenameUser = (userEmail: string, userName: string) => {
+  const handleRenameUser = (userId: string, userName: string) => {
     setUsers(newUsers => newUsers.map(user => {
- 
 
-      if (user.email !== userEmail) {
+      if (user.login.uuid !== userId) {
         return user;
       }
-
-      console.log('user: ', user)
 
       return {
         ...user, name: {
@@ -46,18 +43,44 @@ export const App = () => {
     const getUsers = () => {
       fetch(`https://randomuser.me/api/?page=${currentPage}&results=${+postsPerPage}&nat=ua&seed=foobar`)
         .then((response) => response.json())
-        .then((response) => setUsers(response.results))
+        .then((response) => setUsers(response.results.map((user: User) => {
+          return {
+            ...user,
+            name: {
+              title: user.name.title,
+              first: user.name.first,
+              last: user.name.last,
+              fullname: `${user.name.first} ${user.name.last}`
+            },
+          }
+        })))
         .then(() => setLoading(false))
     }
 
     getUsers();
   }, [currentPage, postsPerPage])
 
+    const usersWithFullName = (justUsers: User[]) => {
+    return justUsers.map(user => {
+      return {
+        ...user,
+        name: {
+          title: user.name.title,
+          first: user.name.first,
+          last: user.name.last,
+          fullname: `${user.name.first} ${user.name.last}`
+        },
+      }
+    })
+  }
+
+  const memoizedUsers = useMemo(() => usersWithFullName(users), [users])
+  
+  console.log(memoizedUsers)
 
   // const indexOfLastPost = currentPage * +postsPerPage;
   // const indexOfFirstPost = indexOfLastPost - +postsPerPage;
   // const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
-
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -95,9 +118,7 @@ export const App = () => {
     ));
   };
 
-  const filteredUsers = users.length
-    ? filterUsers(users)
-    : [];
+  const filteredUsers = filterUsers(users);
 
   const sortUsers = (usersForSort: User[]) => {
     const getDateOfBirth = (date: string) => {
@@ -116,9 +137,7 @@ export const App = () => {
     }
   }
 
-  const sorteredFilteredUsers = users.length
-    ? sortUsers(filteredUsers)
-    : [];
+  const sorteredFilteredUsers = sortUsers(filteredUsers)
 
   const sortByUserSex = (usersForSort: User[]) => {
     if (male) {
@@ -132,23 +151,9 @@ export const App = () => {
     return usersForSort;
   }
 
-  const preparedUsers = users.length
-    ? sortByUserSex(sorteredFilteredUsers)
-    : [];
+  const preparedUsers = sortByUserSex(sorteredFilteredUsers);
 
-  const preparedUsersWithFullName = users.length
-    ? preparedUsers.map(user => {
-      return {
-        ...user,
-        name: {
-          title: user.name.title,
-          first: user.name.first,
-          last: user.name.last,
-          fullname: `${user.name.first} ${user.name.last}`
-        },
-      }
-    })
-    : [];
+  console.log(preparedUsers)
 
   return (
     <Container maxWidth="lg">
@@ -169,7 +174,7 @@ export const App = () => {
           handleChangeSelect={handleChangeSelect}
         />
         <UsersList
-          users={preparedUsersWithFullName}
+          users={preparedUsers}
           loading={loading}
           totalPosts={500}
           paginate={paginate}

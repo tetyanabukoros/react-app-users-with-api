@@ -46,9 +46,9 @@ export const UsersList: React.FC<Props> = (props) => {
               }
             </Paper>
           )}
-          {users?.map((user, index) => (
+          {users?.map((user) => (
             <UserCard
-              key={`${user.email}${index}`}
+              key={user.login.uuid}
               user={user}
               handleDeleteUser={handleDeleteUser}
               handleRenameUser={handleRenameUser}

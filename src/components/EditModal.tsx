@@ -22,6 +22,7 @@ export const EditModal: React.FC<Props> = (props) => {
   } = props;
 
   const [userName, setUserName] = useState(user.name.fullname)
+  const [edit, setEdit] = useState(false);
 
   const { date } = user.dob;
   const { phone } = user;
@@ -74,7 +75,7 @@ export const EditModal: React.FC<Props> = (props) => {
                 borderRadius: "12px"
               }}
               variant="contained"
-              onClick={() => handleDeleteUser(user.email)}
+              onClick={() => handleDeleteUser(user.login.uuid)}
             >
               Delete
             </Button>
@@ -86,8 +87,9 @@ export const EditModal: React.FC<Props> = (props) => {
                 value={userName}
                 type="text"
                 onChange={(event) => {
-                  setUserName(event.target.value);
-                  handleRenameUser(user.email, event.target.value);
+                  if (edit) {
+                    setUserName(event.target.value);
+                  }
                 }}
               />
               <Button
@@ -105,10 +107,15 @@ export const EditModal: React.FC<Props> = (props) => {
                 }}
                 variant="contained"
                 onClick={() => {
-                  handleRenameUser(user.email, userName)
+                  setEdit(true)
+
+                  if (edit) {
+                    handleRenameUser(user.login.uuid, userName);
+                    setEdit(false)
+                  }
                 }}
               >
-                {'Edit'}
+                {!edit ? 'Edit' : 'Update'}
               </Button>
             </Stack>
             <Stack direction="row">

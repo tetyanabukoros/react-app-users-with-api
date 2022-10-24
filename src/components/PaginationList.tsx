@@ -24,8 +24,6 @@ export const PaginationList: React.FC<Props> = ({
     }
   }
 
-  console.log(pageNumbers)
-
   return (
     <nav>
       <Stack
