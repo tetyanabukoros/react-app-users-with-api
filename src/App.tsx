@@ -6,7 +6,7 @@ import { Stack, Container, SelectChangeEvent } from '@mui/material';
 import { AppContext } from './components/AppContext';
 
 export const App = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[] | []>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,9 +21,24 @@ export const App = () => {
     setUsers((prev: User[]) => (prev.filter(el => el.email !== selectedUserEmail)))
   }
 
-  // const indexOfLastPost = currentPage * +postsPerPage;
-  // const indexOfFirstPost = indexOfLastPost - +postsPerPage;
-  // const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
+    useEffect(() => {
+
+    const getUsers = () => {
+      fetch(`https://randomuser.me/api/?page=${currentPage}&results=${+postsPerPage}&nat=ua&seed=foobar`)
+        .then((response) => response.json())
+        .then((response) => setUsers((prev) => (
+          [...prev, ...response.results]
+        )))
+
+        .then(() => setLoading(false))
+    }
+
+    getUsers();
+  }, [currentPage, postsPerPage])
+
+  const indexOfLastPost = currentPage * +postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - +postsPerPage;
+  const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -61,7 +76,9 @@ export const App = () => {
     ));
   };
 
-  const filteredUsers = filterUsers(users);
+  const filteredUsers = users.length 
+  ? filterUsers(currentPosts) 
+  : [];
 
   const sortUsers = (usersForSort: User[]) => {
     const getDateOfBirth = (date: string) => {
@@ -80,7 +97,9 @@ export const App = () => {
     }
   }
 
-  const sorteredFilteredUsers = sortUsers(filteredUsers) || [];
+  const sorteredFilteredUsers = users.length
+  ? sortUsers(filteredUsers) 
+  : [];
 
   const sortByUserSex = (usersForSort: User[]) => {
     if (male) {
@@ -94,30 +113,9 @@ export const App = () => {
     return usersForSort;
   }
 
-  const preparedUsers = sortByUserSex(sorteredFilteredUsers);
-
-  useEffect(() => {
-
-    // if (loc.getIt('users)) {
-      // setUsers(loc.getIt('users))
-    // } else {
-
-    // }
-
-    const getUsers = () => {
-      fetch(`https://randomuser.me/api/?page=${currentPage}&results=${+postsPerPage}&nat=ua&seed=foobar`)
-        .then((response) => response.json())
-        .then((response) => setUsers(response.results))
-        // .then((response) => setUsers(prev => (
-        //   [...prev, response.results]
-        // )))
-        .then(() => setLoading(false))
-    }
-
-    getUsers();
-  }, [currentPage, postsPerPage])
-
-  console.log(users)
+  const preparedUsers =  users.length
+  ? sortByUserSex(sorteredFilteredUsers)
+  : [];
 
   return (
     <Container maxWidth="lg">

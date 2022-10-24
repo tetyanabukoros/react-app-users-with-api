@@ -18,7 +18,7 @@ export const PaginationList: React.FC<Props> = ({
   const { postsPerPage, setPostsPerPage } = useContext(AppContext);
 
   for (let i = 1; i <= Math.ceil(totalPosts / +postsPerPage); i++) {
-    if (pageNumbers.length < 10) {
+    if (pageNumbers.length < 3) {
       pageNumbers.push(i);
     }
   }
