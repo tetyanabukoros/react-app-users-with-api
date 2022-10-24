@@ -1,5 +1,5 @@
-import { Box, Paper, Typography } from '@mui/material';
-import React, { Dispatch, SetStateAction } from 'react';
+import { Box, Paper } from '@mui/material';
+import React from 'react';
 import { User } from '../types/User';
 import { PaginationList } from './PaginationList';
 import { UserCard } from './UserCard';
@@ -9,13 +9,19 @@ type Props = {
   loading: boolean;
   totalPosts: number;
   paginate: (pageNumber: number) => void;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
+  currentPage: number;
   handleDeleteUser: (selectedUserEmail: string) => void;
 };
 
 export const UsersList: React.FC<Props> = (props) => {
-  const { users, loading, totalPosts, paginate, page, setPage, handleDeleteUser } = props;
+  const {
+    users,
+    loading,
+    totalPosts,
+    paginate,
+    currentPage,
+    handleDeleteUser,
+  } = props;
 
   return (
     <div>
@@ -30,7 +36,7 @@ export const UsersList: React.FC<Props> = (props) => {
               textAlign: "center",
               fontFamily: 'Work Sans',
               fontWeight: "700",
-              borderRadius: "12px" 
+              borderRadius: "12px"
             }}>
               {loading
                 ? <p>Loading...</p>
@@ -50,8 +56,7 @@ export const UsersList: React.FC<Props> = (props) => {
       <PaginationList
         totalPosts={totalPosts}
         paginate={paginate}
-        page={page}
-        setPage={setPage}
+        currentPage={currentPage}
       />
     </div>
   );

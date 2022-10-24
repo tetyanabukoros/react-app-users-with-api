@@ -14,7 +14,6 @@ export const App = () => {
   const [male, setMale] = useState(false);
   const [female, setFemale] = useState(false);
   const [select, setSelect] = useState('');
-  const [page, setPage] = useState<number>(1);
 
   const { postsPerPage } = useContext(AppContext);
 
@@ -22,9 +21,9 @@ export const App = () => {
     setUsers((prev: User[]) => (prev.filter(el => el.email !== selectedUserEmail)))
   }
 
-  const indexOfLastPost = currentPage * +postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - +postsPerPage;
-  const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
+  // const indexOfLastPost = currentPage * +postsPerPage;
+  // const indexOfFirstPost = indexOfLastPost - +postsPerPage;
+  // const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -62,13 +61,12 @@ export const App = () => {
     ));
   };
 
-  const filteredUsers = filterUsers(currentPosts);
+  const filteredUsers = filterUsers(users);
 
   const sortUsers = (usersForSort: User[]) => {
     const getDateOfBirth = (date: string) => {
       return +`${date.slice(0, 4)}${date.slice(5, 7)}${date.slice(8, 10)}`
     }
-
     switch (select) {
       case 'name':
         return usersForSort.sort((a, b) => (`${a.name.first} ${a.name.last}`)
@@ -82,7 +80,7 @@ export const App = () => {
     }
   }
 
-  const sorteredFilteredUsers = sortUsers(filteredUsers);
+  const sorteredFilteredUsers = sortUsers(filteredUsers) || [];
 
   const sortByUserSex = (usersForSort: User[]) => {
     if (male) {
@@ -97,27 +95,29 @@ export const App = () => {
   }
 
   const preparedUsers = sortByUserSex(sorteredFilteredUsers);
-  const preparedUsersWithId = preparedUsers.map((item, index) => {
-    console.log(index)
-    return {
-      userId: index + 1, 
-      ...item
-    }
-  })
-
-  console.log(preparedUsersWithId)
 
   useEffect(() => {
 
+    // if (loc.getIt('users)) {
+      // setUsers(loc.getIt('users))
+    // } else {
+
+    // }
+
     const getUsers = () => {
-      fetch(`https://randomuser.me/api/?results=500&nat=ua&seed=foobar`)
+      fetch(`https://randomuser.me/api/?page=${currentPage}&results=${+postsPerPage}&nat=ua&seed=foobar`)
         .then((response) => response.json())
         .then((response) => setUsers(response.results))
+        // .then((response) => setUsers(prev => (
+        //   [...prev, response.results]
+        // )))
         .then(() => setLoading(false))
     }
 
     getUsers();
-  }, [])
+  }, [currentPage, postsPerPage])
+
+  console.log(users)
 
   return (
     <Container maxWidth="lg">
@@ -140,10 +140,9 @@ export const App = () => {
         <UsersList
           users={preparedUsers}
           loading={loading}
-          totalPosts={users.length}
+          totalPosts={500}
           paginate={paginate}
-          page={page}
-          setPage={setPage}
+          currentPage={currentPage}
           handleDeleteUser={handleDeleteUser}
         />
       </Stack>

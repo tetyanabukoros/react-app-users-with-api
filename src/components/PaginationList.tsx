@@ -1,19 +1,17 @@
 import { Stack } from '@mui/material';
-import React, { useContext, Dispatch, SetStateAction } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from './AppContext';
 
 type Props = {
   totalPosts: number;
   paginate: (pageNumber: number) => void;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
+  currentPage: number;
 };
 
 export const PaginationList: React.FC<Props> = ({
   totalPosts,
   paginate,
-  page,
-  setPage
+  currentPage,
 }) => {
   const pageNumbers = [];
 
@@ -35,10 +33,9 @@ export const PaginationList: React.FC<Props> = ({
         <ul className='paginationList'>
           <li className='paginationList__item'>
             <button
-              disabled={page === 1}
+              disabled={currentPage === 1}
               onClick={() => {
-                setPage((prev) => prev - 1)
-                paginate(page);
+                paginate(currentPage - 1);
               }}
               className='paginationList__button'
             >
@@ -48,10 +45,9 @@ export const PaginationList: React.FC<Props> = ({
           {pageNumbers.map(number => (
             <li className='paginationList__item' key={number}>
               <button
-                className={`paginationList__button ${page === number ? 'paginationList__button-active' : ''}`}
+                className={`paginationList__button ${currentPage === number ? 'paginationList__button-active' : ''}`}
                 onClick={() => {
                   paginate(number);
-                  setPage(number);
                 }}
               >
                 {number}
@@ -60,10 +56,9 @@ export const PaginationList: React.FC<Props> = ({
           ))}
           <li className='paginationList__item'>
             <button
-              disabled={totalPosts / +postsPerPage === page}
+              disabled={totalPosts / +postsPerPage === currentPage}
               onClick={() => {
-                setPage(prev => prev + 1)
-                paginate(page);
+                paginate(currentPage + 1);
               }}
               className='paginationList__button'
             >

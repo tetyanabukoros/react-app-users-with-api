@@ -11,6 +11,7 @@ export const AppContext = React.createContext({
 export const AppContextProvider = ({children}: {children: ReactNode}) => {
 
   const [postsPerPage, setPostsPerPage] = useLocalStorage('postPerPage', '50');
+  // const [users, setUsers] = useLocalStorage('users', []);
   const [selectedUserEmail, setSelectedUserEmail] = useState('');
   
 

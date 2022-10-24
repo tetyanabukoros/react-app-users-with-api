@@ -2,7 +2,7 @@ import { Modal, Box, Button, Stack } from '@mui/material';
 import React from 'react';
 import { modalStyle } from '../styles/Styles';
 import { User } from '../types/User';
-import { getBirthdayFormat } from './UserCard';
+import { getBirthdayFormat } from "./functionHelper/getBirthdayFormat";
 
 interface Props {
   openEditForm: boolean;

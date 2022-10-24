@@ -34,4 +34,5 @@ export interface User {
       },
   gender:"male" | "female",
   phone: string,
+  userId: number | undefined
 }

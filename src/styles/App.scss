@@ -216,6 +216,9 @@
   padding: 24px;
   margin-bottom: 8px;
   border-radius: 12px;
-  cursor: grab;
   border: 1px solid #E5E5E5 ;
+  
+  &-grab {
+    cursor: grab;
+  }
 }
