@@ -1,7 +1,7 @@
 
 export const getBirthdayFormat = (data: string) => {
-  const day = data.slice(8, 10);
-  const monthNumber = data.slice(5, 7);
+  const day = data.slice(0, 2);
+  const monthNumber = data.slice(3, 5);
   let month = '';
   switch (monthNumber) {
     case "01":
@@ -43,6 +43,6 @@ export const getBirthdayFormat = (data: string) => {
     default:
       month = 'April';
   }
-  const year = data.slice(0, 4);
+  const year = data.slice(6, 11);
   return `${day} ${month} ${year}`;
 };

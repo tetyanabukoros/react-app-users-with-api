@@ -16,6 +16,7 @@ export interface User {
     {street: {
         number: number,
         name: string,
+        adress: string,
       },
       city: string,
       state: string,

@@ -8,8 +8,13 @@ interface Props {
   openEditForm: boolean;
   handleCloseEditForm: () => void;
   user: User;
-  handleDeleteUser: (selectedUserEmail: string) => void;
-  handleRenameUser:  (userEmail: string, name: string) => void;
+  handleDeleteUser: (userId: string) => void;
+  handleRenameUser:  (userId: string, name: string) => void;
+  handleChangeEmail:  (userId: string, email: string) => void;
+  handleChangePhone:  (userId: string, phone: string) => void;
+  handleChangeCity:  (userId: string, city: string) => void;
+  handleChangeAdress:  (userId: string, adress: string) => void;
+  handleChangeDate:  (userId: string, date: string) => void;
 }
 
 export const EditModal: React.FC<Props> = (props) => {
@@ -18,16 +23,26 @@ export const EditModal: React.FC<Props> = (props) => {
     handleCloseEditForm, 
     user, 
     handleDeleteUser,
-    handleRenameUser
+    handleRenameUser,
+    handleChangeEmail,
+    handleChangePhone,
+    handleChangeCity,
+    handleChangeAdress,
+    handleChangeDate
   } = props;
 
   const [userName, setUserName] = useState(user.name.fullname)
-  const [edit, setEdit] = useState(false);
-
-  const { date } = user.dob;
-  const { phone } = user;
-  const { first, last } = user.name;
-  const { number, name } = user.location.street;
+  const [editName, setEditName] = useState(false);
+  const [userEmail, setUserEmail] = useState(user.email)
+  const [editEmail, setEditEmail] = useState(false);
+  const [userPhone, setUserPhone] = useState(user.phone)
+  const [editPhone, setEditPhone] = useState(false);
+  const [userCity, setUserCity] = useState(user.location.city)
+  const [editCity, setEditCity] = useState(false);
+  const [userAdress, setUserAdress] = useState(user.location.street.adress)
+  const [editAdress, setEditAdress] = useState(false);
+  const [userDate, setUserDate] = useState(user.dob.date)
+  const [editDate, setEditDate] = useState(false);
 
   return (
     <Modal
@@ -58,7 +73,7 @@ export const EditModal: React.FC<Props> = (props) => {
             <img
               className="modal__image"
               src={user?.picture.large}
-              alt={`${first} ${last}`}
+              alt={user.name.fullname}
             />
             <h2 className="modal__name">{userName}</h2>
             <p className="modal__birth">{getBirthdayFormat(user.dob.date)}</p>
@@ -87,7 +102,7 @@ export const EditModal: React.FC<Props> = (props) => {
                 value={userName}
                 type="text"
                 onChange={(event) => {
-                  if (edit) {
+                  if (editName) {
                     setUserName(event.target.value);
                   }
                 }}
@@ -107,22 +122,27 @@ export const EditModal: React.FC<Props> = (props) => {
                 }}
                 variant="contained"
                 onClick={() => {
-                  setEdit(true)
+                  setEditName(true)
 
-                  if (edit) {
+                  if (editName) {
                     handleRenameUser(user.login.uuid, userName);
-                    setEdit(false)
+                    setEditName(false)
                   }
                 }}
               >
-                {!edit ? 'Edit' : 'Update'}
+                {!editName ? 'Edit' : 'Update'}
               </Button>
             </Stack>
             <Stack direction="row">
               <input
                 className="modal__input"
-                value={user.email}
+                value={userEmail}
                 type="text"
+                onChange={(event) => {
+                  if (editEmail) {
+                    setUserEmail(event.target.value);
+                  }
+                }}
               />
               <Button
                 style={{
@@ -138,15 +158,27 @@ export const EditModal: React.FC<Props> = (props) => {
                   height: "52px",
                 }}
                 variant="contained"
+                onClick={() => {
+                  setEditEmail(true)
+                  if (editEmail) {
+                    handleChangeEmail(user.login.uuid, userEmail);
+                    setEditEmail(false)
+                  }
+                }}
               >
-                {'Edit'}
+                {!editEmail ? 'Edit' : 'Update'}
               </Button>
             </Stack>
             <Stack direction="row">
               <input
                 className="modal__input"
-                value={`+38${phone.slice(1, 4)}0${phone.slice(7, 9)}${phone.slice(10, 14)}`}
+                value={userPhone}
                 type="text"
+                onChange={(event) => {
+                  if (editPhone) {
+                    setUserPhone(event.target.value);
+                  }
+                }}
               />
               <Button
                 style={{
@@ -162,15 +194,27 @@ export const EditModal: React.FC<Props> = (props) => {
                   height: "52px",
                 }}
                 variant="contained"
+                onClick={() => {
+                  setEditPhone(true)
+                  if (editPhone) {
+                    handleChangePhone(user.login.uuid, userPhone);
+                    setEditPhone(false)
+                  }
+                }}
               >
-                {'Edit'}
+                {!editPhone ? 'Edit' : 'Update'}
               </Button>
             </Stack>
             <Stack direction="row">
               <input
                 className="modal__input"
-                value={user.location.city}
+                value={userCity}
                 type="text"
+                onChange={(event) => {
+                  if (editCity) {
+                    setUserCity(event.target.value);
+                  }
+                }}
               />
               <Button
                 style={{
@@ -186,15 +230,27 @@ export const EditModal: React.FC<Props> = (props) => {
                   height: "52px",
                 }}
                 variant="contained"
+                onClick={() => {
+                  setEditCity(true)
+                  if (editCity) {
+                    handleChangeCity(user.login.uuid, userCity);
+                    setEditCity(false)
+                  }
+                }}
               >
-                {'Edit'}
+                {!editCity ? 'Edit' : 'Update'}
               </Button>
             </Stack>
             <Stack direction="row">
               <input
                 className="modal__input"
-                value={`${name} ${number}`}
+                value={userAdress}
                 type="text"
+                onChange={(event) => {
+                  if (editAdress) {
+                    setUserAdress(event.target.value);
+                  }
+                }}
               />
               <Button
                 style={{
@@ -210,15 +266,27 @@ export const EditModal: React.FC<Props> = (props) => {
                   height: "52px",
                 }}
                 variant="contained"
+                onClick={() => {
+                  setEditAdress(true)
+                  if (editAdress) {
+                    handleChangeAdress(user.login.uuid, userAdress);
+                    setEditAdress(false)
+                  }
+                }}
               >
-                {'Edit'}
+                {!editAdress ? 'Edit' : 'Update'}
               </Button>
             </Stack>
             <Stack direction="row">
               <input
                 className="modal__input"
-                value={`${date.slice(8, 10)}.${date.slice(5, 7)}.${date.slice(0, 4)}`}
+                value={userDate}
                 type="text"
+                onChange={(event) => {
+                  if (editDate) {
+                    setUserDate(event.target.value);
+                  }
+                }}
               />
               <Button
                 style={{
@@ -234,8 +302,15 @@ export const EditModal: React.FC<Props> = (props) => {
                   height: "52px",
                 }}
                 variant="contained"
+                onClick={() => {
+                  setEditDate(true)
+                  if (editDate) {
+                    handleChangeDate(user.login.uuid, userDate);
+                    setEditDate(false)
+                  }
+                }}
               >
-                {'Edit'}
+                {!editDate ? 'Edit' : 'Update'}
               </Button>
             </Stack>
           </Stack>

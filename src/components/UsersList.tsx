@@ -10,8 +10,13 @@ type Props = {
   totalPosts: number;
   paginate: (pageNumber: number) => void;
   currentPage: number;
-  handleDeleteUser: (selectedUserEmail: string) => void;
-  handleRenameUser:  (userEmail: string, name: string) => void;
+  handleDeleteUser: (userId: string) => void;
+  handleRenameUser:  (userId: string, name: string) => void;
+  handleChangeEmail:  (userId: string, email: string) => void;
+  handleChangePhone:  (userId: string, phone: string) => void;
+  handleChangeCity:  (userId: string, city: string) => void;
+  handleChangeAdress:  (userId: string, adress: string) => void;
+  handleChangeDate:  (userId: string, date: string) => void;
 };
 
 export const UsersList: React.FC<Props> = (props) => {
@@ -22,7 +27,12 @@ export const UsersList: React.FC<Props> = (props) => {
     paginate,
     currentPage,
     handleDeleteUser,
-    handleRenameUser
+    handleRenameUser,
+    handleChangeEmail,
+    handleChangePhone,
+    handleChangeCity,
+    handleChangeAdress,
+    handleChangeDate
   } = props;
 
   return (
@@ -52,6 +62,11 @@ export const UsersList: React.FC<Props> = (props) => {
               user={user}
               handleDeleteUser={handleDeleteUser}
               handleRenameUser={handleRenameUser}
+              handleChangeEmail={handleChangeEmail}
+              handleChangePhone={handleChangePhone}
+              handleChangeCity={handleChangeCity}
+              handleChangeAdress={handleChangeAdress}
+              handleChangeDate={handleChangeDate}
             />
           ))}
         </Box>

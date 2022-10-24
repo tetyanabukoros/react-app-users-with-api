@@ -8,8 +8,13 @@ import { getBirthdayFormat } from './functionHelper/getBirthdayFormat';
 
 type Props = {
   user: User;
-  handleDeleteUser: (selectedUserEmail: string) => void;
-  handleRenameUser:  (userEmail: string, name: string) => void;
+  handleDeleteUser: (userId: string) => void;
+  handleRenameUser:  (userId: string, name: string) => void;
+  handleChangeEmail:  (userId: string, email: string) => void;
+  handleChangePhone:  (userId: string, phone: string) => void;
+  handleChangeCity:  (userId: string, city: string) => void;
+  handleChangeAdress:  (userId: string, adress: string) => void;
+  handleChangeDate:  (userId: string, date: string) => void;
 };
 
 export const UserCard: React.FC<Props> = (props) => {
@@ -17,13 +22,18 @@ export const UserCard: React.FC<Props> = (props) => {
     user, 
     handleDeleteUser,
     handleRenameUser,
+    handleChangeEmail,
+    handleChangePhone,
+    handleChangeCity,
+    handleChangeAdress,
+    handleChangeDate
   } = props;
 
   const { setSelectedUserEmail } = useContext(AppContext);
   const [openEditForm, setOpenEditForm] = React.useState(false);
   const handleOpenEditForm = () => setOpenEditForm(true);
   const handleCloseEditForm = () => setOpenEditForm(false);
-  const { street, city } = user.location;
+  const { adress } = user.location.street;
   const { first, last } = user.name;
 
   return (
@@ -44,7 +54,7 @@ export const UserCard: React.FC<Props> = (props) => {
             <Stack direction="column" justifyContent="space-between">
               <h2 className="usersList__name">{user.name.fullname}</h2>
               <p className="usersList__birth">{getBirthdayFormat(user.dob.date)}</p>
-              <p className="usersList__info">{city}, {street.name} {street.number}</p>
+              <p className="usersList__info">{adress}</p>
               <p className="usersList__info">{user.email}</p>
             </Stack>
           </Stack>
@@ -76,6 +86,11 @@ export const UserCard: React.FC<Props> = (props) => {
           user={user}
           handleDeleteUser={handleDeleteUser}
           handleRenameUser={handleRenameUser}
+          handleChangeEmail={handleChangeEmail}
+          handleChangePhone={handleChangePhone}
+          handleChangeCity={handleChangeCity}
+          handleChangeAdress={handleChangeAdress}
+          handleChangeDate={handleChangeDate}
         />
       </div>
     </div>

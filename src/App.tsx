@@ -36,7 +36,85 @@ export const App = () => {
         }
       };
     }))
-  }
+  };
+
+  const handleChangeEmail = (userId: string, userEmail: string) => {
+    setUsers(newUsers => newUsers.map(user => {
+
+      if (user.login.uuid !== userId) {
+        return user;
+      }
+
+      return {
+        ...user, email: userEmail
+      };
+    }))
+  };
+
+  const handleChangePhone = (userId: string, userPhone: string) => {
+    setUsers(newUsers => newUsers.map(user => {
+
+      if (user.login.uuid !== userId) {
+        return user;
+      }
+
+      return {
+        ...user, phone: userPhone
+      };
+    }))
+  };
+
+  const handleChangeCity = (userId: string, userCity: string) => {
+    setUsers(newUsers => newUsers.map(user => {
+
+      if (user.login.uuid !== userId) {
+        return user;
+      }
+
+      return {
+        ...user, location: {
+          ...user.location,
+          city: userCity
+        }
+      };
+    }))
+  };
+
+  const handleChangeAdress = (userId: string, userAdress: string) => {
+    setUsers(newUsers => newUsers.map(user => {
+
+      if (user.login.uuid !== userId) {
+        return user;
+      }
+
+      return {
+        ...user, location: {
+          ...user.location,
+          street: {
+            ...user.location.street,
+            adress: userAdress
+          }
+        }
+      };
+    }))
+  };
+
+  const handleChangeDate = (userId: string, userDate: string) => {
+    setUsers(newUsers => newUsers.map(user => {
+
+      if (user.login.uuid !== userId) {
+        return user;
+      }
+
+      return {
+        ...user, 
+        dob: {
+          ...user.dob,
+          date: userDate
+        }
+      };
+    }))
+  };
 
   useEffect(() => {
 
@@ -47,11 +125,21 @@ export const App = () => {
           return {
             ...user,
             name: {
-              title: user.name.title,
-              first: user.name.first,
-              last: user.name.last,
+              ...user.name,
               fullname: `${user.name.first} ${user.name.last}`
             },
+            phone: `+38${user.phone.slice(1, 4)}${user.phone.slice(6, 9)}${user.phone.slice(10, 14)}`,
+            location: {
+              ...user.location,
+              street: {
+                ...user.location.street,
+                adress: `${user.location.street.name} ${user.location.street.number}`
+              }
+            },
+            dob: {
+              ...user.dob,
+              date: `${user.dob.date.slice(8, 10)}.${user.dob.date.slice(5, 7)}.${user.dob.date.slice(0, 4)}`,
+            }
           }
         })))
         .then(() => setLoading(false))
@@ -59,24 +147,6 @@ export const App = () => {
 
     getUsers();
   }, [currentPage, postsPerPage])
-
-    const usersWithFullName = (justUsers: User[]) => {
-    return justUsers.map(user => {
-      return {
-        ...user,
-        name: {
-          title: user.name.title,
-          first: user.name.first,
-          last: user.name.last,
-          fullname: `${user.name.first} ${user.name.last}`
-        },
-      }
-    })
-  }
-
-  const memoizedUsers = useMemo(() => usersWithFullName(users), [users])
-  
-  console.log(memoizedUsers)
 
   // const indexOfLastPost = currentPage * +postsPerPage;
   // const indexOfFirstPost = indexOfLastPost - +postsPerPage;
@@ -181,6 +251,11 @@ export const App = () => {
           currentPage={currentPage}
           handleDeleteUser={handleDeleteUser}
           handleRenameUser={handleRenameUser}
+          handleChangeEmail={handleChangeEmail}
+          handleChangePhone={handleChangePhone}
+          handleChangeCity={handleChangeCity}
+          handleChangeAdress={handleChangeAdress}
+          handleChangeDate={handleChangeDate}
         />
       </Stack>
     </Container>
