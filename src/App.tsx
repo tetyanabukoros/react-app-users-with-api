@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { User } from './types/User';
 import { UsersList } from './components/UsersList';
 import { FilterBlock } from './components/FilterBlock';
@@ -9,7 +9,7 @@ import { useLocalStorage } from './components/LocalStorage';
 export const App = () => {
   const [users, setUsers] = useLocalStorage<User[]>('users', []);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useLocalStorage('currentPage', 1);
   const [searchQuery, setSearchQuery] = useState('');
   const [ageValue, setAgeValue] = useState<number[]>([20, 70]);
   const [male, setMale] = useState(false);
@@ -180,8 +180,7 @@ export const App = () => {
 
   const filterUsers = (currentUsers: User[]) => {
     return currentUsers.filter(currentUser => (
-      ((currentUser.name.first.toLowerCase().includes(prettyQuery))
-        || (currentUser.name.last.toLowerCase().includes(prettyQuery)))
+      (currentUser.name.fullname.toLowerCase().includes(prettyQuery))
       && (
         currentUser.dob.age >= ageValue[0] && currentUser.dob.age <= ageValue[1]
       )
@@ -256,6 +255,7 @@ export const App = () => {
           handleChangeCity={handleChangeCity}
           handleChangeAdress={handleChangeAdress}
           handleChangeDate={handleChangeDate}
+          setUsers={setUsers}
         />
       </Stack>
     </Container>

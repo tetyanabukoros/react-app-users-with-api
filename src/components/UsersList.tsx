@@ -3,6 +3,8 @@ import React from 'react';
 import { User } from '../types/User';
 import { PaginationList } from './PaginationList';
 import { UserCard } from './UserCard';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 
 type Props = {
   users: User[] | undefined;
@@ -11,12 +13,13 @@ type Props = {
   paginate: (pageNumber: number) => void;
   currentPage: number;
   handleDeleteUser: (userId: string) => void;
-  handleRenameUser:  (userId: string, name: string) => void;
-  handleChangeEmail:  (userId: string, email: string) => void;
-  handleChangePhone:  (userId: string, phone: string) => void;
-  handleChangeCity:  (userId: string, city: string) => void;
-  handleChangeAdress:  (userId: string, adress: string) => void;
-  handleChangeDate:  (userId: string, date: string) => void;
+  handleRenameUser: (userId: string, name: string) => void;
+  handleChangeEmail: (userId: string, email: string) => void;
+  handleChangePhone: (userId: string, phone: string) => void;
+  handleChangeCity: (userId: string, city: string) => void;
+  handleChangeAdress: (userId: string, adress: string) => void;
+  handleChangeDate: (userId: string, date: string) => void;
+  setUsers: (value: React.SetStateAction<User[]>) => void
 };
 
 export const UsersList: React.FC<Props> = (props) => {
@@ -32,8 +35,17 @@ export const UsersList: React.FC<Props> = (props) => {
     handleChangePhone,
     handleChangeCity,
     handleChangeAdress,
-    handleChangeDate
+    handleChangeDate,
+    setUsers
   } = props;
+
+  function handleOnDragEnd(result: { source: { index: number; }; destination: { index: number; }; }) {
+   const items = Array.from(users);
+   const [reorderedItem] = items.splice(result.source.index, 1);
+   items.splice(result.destination.index, 0, reorderedItem);
+
+   setUsers(items)
+  }
 
   return (
     <div>
@@ -56,19 +68,35 @@ export const UsersList: React.FC<Props> = (props) => {
               }
             </Paper>
           )}
-          {users?.map((user) => (
-            <UserCard
-              key={user.login.uuid}
-              user={user}
-              handleDeleteUser={handleDeleteUser}
-              handleRenameUser={handleRenameUser}
-              handleChangeEmail={handleChangeEmail}
-              handleChangePhone={handleChangePhone}
-              handleChangeCity={handleChangeCity}
-              handleChangeAdress={handleChangeAdress}
-              handleChangeDate={handleChangeDate}
-            />
-          ))}
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId='characters'>
+              {(provided) => (
+                <ul {...provided.droppableProps} ref={provided.innerRef}>
+                  {users?.map((user, index) => {
+                    return (
+                      <Draggable key={user.login.uuid} draggableId={user.login.uuid} index={index}>
+                        {(provided) => (
+                          <li {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                            <UserCard
+                              user={user}
+                              handleDeleteUser={handleDeleteUser}
+                              handleRenameUser={handleRenameUser}
+                              handleChangeEmail={handleChangeEmail}
+                              handleChangePhone={handleChangePhone}
+                              handleChangeCity={handleChangeCity}
+                              handleChangeAdress={handleChangeAdress}
+                              handleChangeDate={handleChangeDate}
+                            />
+                          </li>
+                        )}
+                      </Draggable>
+                    )
+                  })}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
         </Box>
       </div>
       <PaginationList

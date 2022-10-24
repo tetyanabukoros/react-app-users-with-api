@@ -1,6 +1,8 @@
 import React, { ReactNode, useState } from 'react';
 import { useLocalStorage } from './LocalStorage';
 
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 export const AppContext = React.createContext({
   postsPerPage: '50',
   setPostsPerPage(value: string) {this.postsPerPage = value},
