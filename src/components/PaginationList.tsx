@@ -16,12 +16,15 @@ export const PaginationList: React.FC<Props> = ({
   const pageNumbers = [];
 
   const { postsPerPage, setPostsPerPage } = useContext(AppContext);
+  const lastPage = totalPosts / +postsPerPage;
 
-  for (let i = 1; i <= Math.ceil(totalPosts / +postsPerPage); i++) {
-    if (pageNumbers.length < 3) {
+  for (let i = 1; i <= Math.ceil(totalPosts / +postsPerPage) - 1; i++) {
+    if (pageNumbers.length < 5) {
       pageNumbers.push(i);
     }
   }
+
+  console.log(pageNumbers)
 
   return (
     <nav>
@@ -31,13 +34,13 @@ export const PaginationList: React.FC<Props> = ({
         alignItems="baseline"
       >
         <ul className='paginationList'>
-          <li className='paginationList__item'>
-            <button
+          <li className='paginationList__item paginationList__item '>
+            <button 
               disabled={currentPage === 1}
               onClick={() => {
                 paginate(currentPage - 1);
               }}
-              className='paginationList__button'
+              className='paginationList__button paginationList__button-nav'
             >
               {'< Back'}
             </button>
@@ -45,7 +48,9 @@ export const PaginationList: React.FC<Props> = ({
           {pageNumbers.map(number => (
             <li className='paginationList__item' key={number}>
               <button
-                className={`paginationList__button ${currentPage === number ? 'paginationList__button-active' : ''}`}
+                className={`paginationList__button ${currentPage === number 
+                  ? 'paginationList__button-active' 
+                  : ''}`}
                 onClick={() => {
                   paginate(number);
                 }}
@@ -54,13 +59,34 @@ export const PaginationList: React.FC<Props> = ({
               </button>
             </li>
           ))}
+          {pageNumbers.length >= 5 && (
+            <li className='paginationList__item'>
+              <button
+                className='paginationList__button paginationList__button-decor'
+              >
+                ...
+              </button>
+            </li>
+          )}
+          <li className='paginationList__item'>
+            <button
+              className={`paginationList__button ${currentPage === lastPage 
+                ? 'paginationList__button-active' 
+                : ''}`}
+              onClick={() => {
+                paginate(lastPage);
+              }}
+            >
+              {lastPage}
+            </button>
+          </li>
           <li className='paginationList__item'>
             <button
               disabled={totalPosts / +postsPerPage === currentPage}
               onClick={() => {
                 paginate(currentPage + 1);
               }}
-              className='paginationList__button'
+              className='paginationList__button paginationList__button-nav'
             >
               {'Next page >'}
             </button>

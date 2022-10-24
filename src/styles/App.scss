@@ -120,6 +120,7 @@
   align-items: center;
   padding: 8px 18px;
   gap: 3px;
+  padding: 0;
 
   &__item {
     list-style: none;
@@ -137,6 +138,18 @@
       background: #ECD3FA;
       border: 1px solid #52228C;
       color: #52228C;
+    }
+  }
+
+  &__button-nav {
+    width: 110px;
+  }
+
+  &__button-decor {
+    &:hover {
+      background: #dbdadb;
+      border: 1px solid #121212;
+      color: #121212;
     }
   }
 
@@ -216,8 +229,8 @@
   padding: 24px;
   margin-bottom: 8px;
   border-radius: 12px;
-  border: 1px solid #E5E5E5 ;
-  
+  border: 1px solid #E5E5E5;
+
   &-grab {
     cursor: grab;
   }
