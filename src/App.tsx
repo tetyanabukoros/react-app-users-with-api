@@ -4,9 +4,10 @@ import { UsersList } from './components/UsersList';
 import { FilterBlock } from './components/FilterBlock';
 import { Stack, Container, SelectChangeEvent } from '@mui/material';
 import { AppContext } from './components/AppContext';
+import { useLocalStorage } from './components/LocalStorage';
 
 export const App = () => {
-  const [users, setUsers] = useState<User[] | []>([]);
+  const [users, setUsers] = useLocalStorage<User[]>('users', []);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,24 +22,42 @@ export const App = () => {
     setUsers((prev: User[]) => (prev.filter(el => el.email !== selectedUserEmail)))
   }
 
-    useEffect(() => {
+  const handleRenameUser = (userEmail: string, userName: string) => {
+    setUsers(newUsers => newUsers.map(user => {
+ 
+
+      if (user.email !== userEmail) {
+        return user;
+      }
+
+      console.log('user: ', user)
+
+      return {
+        ...user, name: {
+          ...user.name,
+          fullname: userName
+        }
+      };
+    }))
+  }
+
+  useEffect(() => {
 
     const getUsers = () => {
       fetch(`https://randomuser.me/api/?page=${currentPage}&results=${+postsPerPage}&nat=ua&seed=foobar`)
         .then((response) => response.json())
-        .then((response) => setUsers((prev) => (
-          [...prev, ...response.results]
-        )))
-
+        .then((response) => setUsers(response.results))
         .then(() => setLoading(false))
     }
 
     getUsers();
   }, [currentPage, postsPerPage])
 
-  const indexOfLastPost = currentPage * +postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - +postsPerPage;
-  const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
+
+  // const indexOfLastPost = currentPage * +postsPerPage;
+  // const indexOfFirstPost = indexOfLastPost - +postsPerPage;
+  // const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
+
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -76,9 +95,9 @@ export const App = () => {
     ));
   };
 
-  const filteredUsers = users.length 
-  ? filterUsers(currentPosts) 
-  : [];
+  const filteredUsers = users.length
+    ? filterUsers(users)
+    : [];
 
   const sortUsers = (usersForSort: User[]) => {
     const getDateOfBirth = (date: string) => {
@@ -98,8 +117,8 @@ export const App = () => {
   }
 
   const sorteredFilteredUsers = users.length
-  ? sortUsers(filteredUsers) 
-  : [];
+    ? sortUsers(filteredUsers)
+    : [];
 
   const sortByUserSex = (usersForSort: User[]) => {
     if (male) {
@@ -113,9 +132,23 @@ export const App = () => {
     return usersForSort;
   }
 
-  const preparedUsers =  users.length
-  ? sortByUserSex(sorteredFilteredUsers)
-  : [];
+  const preparedUsers = users.length
+    ? sortByUserSex(sorteredFilteredUsers)
+    : [];
+
+  const preparedUsersWithFullName = users.length
+    ? preparedUsers.map(user => {
+      return {
+        ...user,
+        name: {
+          title: user.name.title,
+          first: user.name.first,
+          last: user.name.last,
+          fullname: `${user.name.first} ${user.name.last}`
+        },
+      }
+    })
+    : [];
 
   return (
     <Container maxWidth="lg">
@@ -136,12 +169,13 @@ export const App = () => {
           handleChangeSelect={handleChangeSelect}
         />
         <UsersList
-          users={preparedUsers}
+          users={preparedUsersWithFullName}
           loading={loading}
           totalPosts={500}
           paginate={paginate}
           currentPage={currentPage}
           handleDeleteUser={handleDeleteUser}
+          handleRenameUser={handleRenameUser}
         />
       </Stack>
     </Container>

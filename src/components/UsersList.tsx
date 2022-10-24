@@ -11,6 +11,7 @@ type Props = {
   paginate: (pageNumber: number) => void;
   currentPage: number;
   handleDeleteUser: (selectedUserEmail: string) => void;
+  handleRenameUser:  (userEmail: string, name: string) => void;
 };
 
 export const UsersList: React.FC<Props> = (props) => {
@@ -21,6 +22,7 @@ export const UsersList: React.FC<Props> = (props) => {
     paginate,
     currentPage,
     handleDeleteUser,
+    handleRenameUser
   } = props;
 
   return (
@@ -49,6 +51,7 @@ export const UsersList: React.FC<Props> = (props) => {
               key={`${user.email}${index}`}
               user={user}
               handleDeleteUser={handleDeleteUser}
+              handleRenameUser={handleRenameUser}
             />
           ))}
         </Box>

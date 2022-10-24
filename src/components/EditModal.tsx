@@ -1,5 +1,5 @@
 import { Modal, Box, Button, Stack } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { modalStyle } from '../styles/Styles';
 import { User } from '../types/User';
 import { getBirthdayFormat } from "./functionHelper/getBirthdayFormat";
@@ -9,10 +9,19 @@ interface Props {
   handleCloseEditForm: () => void;
   user: User;
   handleDeleteUser: (selectedUserEmail: string) => void;
+  handleRenameUser:  (userEmail: string, name: string) => void;
 }
 
 export const EditModal: React.FC<Props> = (props) => {
-  const { openEditForm, handleCloseEditForm, user, handleDeleteUser } = props;
+  const { 
+    openEditForm, 
+    handleCloseEditForm, 
+    user, 
+    handleDeleteUser,
+    handleRenameUser
+  } = props;
+
+  const [userName, setUserName] = useState(user.name.fullname)
 
   const { date } = user.dob;
   const { phone } = user;
@@ -50,7 +59,7 @@ export const EditModal: React.FC<Props> = (props) => {
               src={user?.picture.large}
               alt={`${first} ${last}`}
             />
-            <h2 className="modal__name">{first} {last}</h2>
+            <h2 className="modal__name">{userName}</h2>
             <p className="modal__birth">{getBirthdayFormat(user.dob.date)}</p>
             <Button
               style={{
@@ -74,8 +83,12 @@ export const EditModal: React.FC<Props> = (props) => {
             <Stack direction="row">
               <input
                 className="modal__input"
-                value={`${first} ${last}`}
+                value={userName}
                 type="text"
+                onChange={(event) => {
+                  setUserName(event.target.value);
+                  handleRenameUser(user.email, event.target.value);
+                }}
               />
               <Button
                 style={{
@@ -91,6 +104,9 @@ export const EditModal: React.FC<Props> = (props) => {
                   height: "52px",
                 }}
                 variant="contained"
+                onClick={() => {
+                  handleRenameUser(user.email, userName)
+                }}
               >
                 {'Edit'}
               </Button>

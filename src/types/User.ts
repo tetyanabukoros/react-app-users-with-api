@@ -10,6 +10,7 @@ export interface User {
     title: string,
     first: string,
     last: string,
+    fullname: string
   },
   location:
     {street: {

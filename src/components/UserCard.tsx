@@ -9,12 +9,14 @@ import { getBirthdayFormat } from './functionHelper/getBirthdayFormat';
 type Props = {
   user: User;
   handleDeleteUser: (selectedUserEmail: string) => void;
+  handleRenameUser:  (userEmail: string, name: string) => void;
 };
 
 export const UserCard: React.FC<Props> = (props) => {
   const { 
     user, 
     handleDeleteUser,
+    handleRenameUser,
   } = props;
 
   const { setSelectedUserEmail } = useContext(AppContext);
@@ -40,7 +42,7 @@ export const UserCard: React.FC<Props> = (props) => {
             </div>
 
             <Stack direction="column" justifyContent="space-between">
-              <h2 className="usersList__name">{first} {last}</h2>
+              <h2 className="usersList__name">{user.name.fullname}</h2>
               <p className="usersList__birth">{getBirthdayFormat(user.dob.date)}</p>
               <p className="usersList__info">{city}, {street.name} {street.number}</p>
               <p className="usersList__info">{user.email}</p>
@@ -73,6 +75,7 @@ export const UserCard: React.FC<Props> = (props) => {
           handleCloseEditForm={handleCloseEditForm}
           user={user}
           handleDeleteUser={handleDeleteUser}
+          handleRenameUser={handleRenameUser}
         />
       </div>
     </div>

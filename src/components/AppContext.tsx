@@ -5,13 +5,12 @@ export const AppContext = React.createContext({
   postsPerPage: '50',
   setPostsPerPage(value: string) {this.postsPerPage = value},
   selectedUserEmail: '',
-  setSelectedUserEmail(value: string) {this.postsPerPage = value}
+  setSelectedUserEmail(value: string) {this.postsPerPage = value},
 });
 
 export const AppContextProvider = ({children}: {children: ReactNode}) => {
 
   const [postsPerPage, setPostsPerPage] = useLocalStorage('postPerPage', '50');
-  // const [users, setUsers] = useLocalStorage('users', []);
   const [selectedUserEmail, setSelectedUserEmail] = useState('');
   
 
@@ -21,7 +20,7 @@ export const AppContextProvider = ({children}: {children: ReactNode}) => {
         postsPerPage,
         setPostsPerPage,
         selectedUserEmail,
-        setSelectedUserEmail
+        setSelectedUserEmail,
       }}
     >
     {children}
