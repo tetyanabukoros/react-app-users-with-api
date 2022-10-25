@@ -15,7 +15,6 @@ export const App = () => {
   const [male, setMale] = useState(false);
   const [female, setFemale] = useState(false);
   const [select, setSelect] = useState('');
-  console.log(select === 'custom')
 
   const { postsPerPage } = useContext(AppContext);
 

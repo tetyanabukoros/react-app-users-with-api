@@ -106,7 +106,7 @@ export const UsersList: React.FC<Props> = (props) => {
               <ul className="usersList__item">
                 {users?.map((user) => {
                   return (
-                    <li className="usersList__item">
+                    <li key={user.login.uuid} className="usersList__item">
                       <UserCard
                         user={user}
                         handleDeleteUser={handleDeleteUser}
