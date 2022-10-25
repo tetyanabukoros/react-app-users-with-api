@@ -1,5 +1,5 @@
 import { Box, Paper } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { User } from '../types/User';
 import { PaginationList } from './PaginationList';
 import { UserCard } from './UserCard';
@@ -19,7 +19,8 @@ type Props = {
   handleChangeCity: (userId: string, city: string) => void;
   handleChangeAdress: (userId: string, adress: string) => void;
   handleChangeDate: (userId: string, date: string) => void;
-  setUsers: (value: React.SetStateAction<User[]>) => void
+  setUsers: (value: React.SetStateAction<User[]>) => void;
+  select: string;
 };
 
 export const UsersList: React.FC<Props> = (props) => {
@@ -36,15 +37,18 @@ export const UsersList: React.FC<Props> = (props) => {
     handleChangeCity,
     handleChangeAdress,
     handleChangeDate,
-    setUsers
+    setUsers,
+    select
   } = props;
 
-  function handleOnDragEnd(result: { source: { index: number; }; destination: { index: number; }; }) {
-   const items = Array.from(users);
-   const [reorderedItem] = items.splice(result.source.index, 1);
-   items.splice(result.destination.index, 0, reorderedItem);
+  // const [custom, setCustom] = useState(false);
 
-   setUsers(items)
+  function handleOnDragEnd(result) {
+    const items = Array.from(users);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setUsers(items)
   }
 
   return (
@@ -68,35 +72,59 @@ export const UsersList: React.FC<Props> = (props) => {
               }
             </Paper>
           )}
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId='characters'>
-              {(provided) => (
-                <ul {...provided.droppableProps} ref={provided.innerRef}>
-                  {users?.map((user, index) => {
-                    return (
-                      <Draggable key={user.login.uuid} draggableId={user.login.uuid} index={index}>
-                        {(provided) => (
-                          <li {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                            <UserCard
-                              user={user}
-                              handleDeleteUser={handleDeleteUser}
-                              handleRenameUser={handleRenameUser}
-                              handleChangeEmail={handleChangeEmail}
-                              handleChangePhone={handleChangePhone}
-                              handleChangeCity={handleChangeCity}
-                              handleChangeAdress={handleChangeAdress}
-                              handleChangeDate={handleChangeDate}
-                            />
-                          </li>
-                        )}
-                      </Draggable>
-                    )
-                  })}
-                  {provided.placeholder}
-                </ul>
-              )}
-            </Droppable>
-          </DragDropContext>
+          {select === 'custom'
+            ? (
+              <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId='characters'>
+                  {(provided) => (
+                    <ul className="usersList__item" {...provided.droppableProps} ref={provided.innerRef}>
+                      {users?.map((user, index) => {
+                        return (
+                          <Draggable key={user.login.uuid} draggableId={user.login.uuid} index={index}>
+                            {(provided) => (
+                              <li {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                                <UserCard
+                                  user={user}
+                                  handleDeleteUser={handleDeleteUser}
+                                  handleRenameUser={handleRenameUser}
+                                  handleChangeEmail={handleChangeEmail}
+                                  handleChangePhone={handleChangePhone}
+                                  handleChangeCity={handleChangeCity}
+                                  handleChangeAdress={handleChangeAdress}
+                                  handleChangeDate={handleChangeDate}
+                                />
+                              </li>
+                            )}
+                          </Draggable>
+                        )
+                      })}
+                      {provided.placeholder}
+                    </ul>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            )
+            : (
+              <ul className="usersList__item">
+                {users?.map((user) => {
+                  return (
+                    <li className="usersList__item">
+                      <UserCard
+                        user={user}
+                        handleDeleteUser={handleDeleteUser}
+                        handleRenameUser={handleRenameUser}
+                        handleChangeEmail={handleChangeEmail}
+                        handleChangePhone={handleChangePhone}
+                        handleChangeCity={handleChangeCity}
+                        handleChangeAdress={handleChangeAdress}
+                        handleChangeDate={handleChangeDate}
+                      />
+                    </li>
+                  )
+                })}
+              </ul>
+            )
+          }
         </Box>
       </div>
       <PaginationList

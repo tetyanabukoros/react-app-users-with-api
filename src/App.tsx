@@ -15,6 +15,7 @@ export const App = () => {
   const [male, setMale] = useState(false);
   const [female, setFemale] = useState(false);
   const [select, setSelect] = useState('');
+  console.log(select === 'custom')
 
   const { postsPerPage } = useContext(AppContext);
 
@@ -148,10 +149,6 @@ export const App = () => {
     getUsers();
   }, [currentPage, postsPerPage])
 
-  // const indexOfLastPost = currentPage * +postsPerPage;
-  // const indexOfFirstPost = indexOfLastPost - +postsPerPage;
-  // const currentPosts = users.slice(indexOfFirstPost, indexOfLastPost);
-
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
@@ -222,8 +219,6 @@ export const App = () => {
 
   const preparedUsers = sortByUserSex(sorteredFilteredUsers);
 
-  console.log(preparedUsers)
-
   return (
     <Container maxWidth="lg">
       <Stack
@@ -256,6 +251,7 @@ export const App = () => {
           handleChangeAdress={handleChangeAdress}
           handleChangeDate={handleChangeDate}
           setUsers={setUsers}
+          select={select}
         />
       </Stack>
     </Container>

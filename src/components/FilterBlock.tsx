@@ -45,7 +45,7 @@ export const FilterBlock: React.FC<Props> = (props) => {
   return (
     <Box mr={8.5}>
       <h2 className="filterBlock__title">Filter</h2>
-      <Paper>
+      <div className="filterBlock">
         <FormControl
           variant="standard"
           style={{ padding: "27px" }}
@@ -157,7 +157,7 @@ export const FilterBlock: React.FC<Props> = (props) => {
             </MenuItem>
           </Select>
         </FormControl>
-      </Paper>
+      </div>
     </Box>
   );
 };
