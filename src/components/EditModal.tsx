@@ -90,7 +90,10 @@ export const EditModal: React.FC<Props> = (props) => {
                 borderRadius: "12px"
               }}
               variant="contained"
-              onClick={() => handleDeleteUser(user.login.uuid)}
+              onClick={() => {
+                handleDeleteUser(user.login.uuid);
+                handleCloseEditForm();
+              }}
             >
               Delete
             </Button>
