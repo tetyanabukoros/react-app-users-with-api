@@ -1,5 +1,5 @@
 import { Box, Paper } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { User } from '../types/User';
 import { PaginationList } from './PaginationList';
 import { UserCard } from './UserCard';
@@ -41,10 +41,8 @@ export const UsersList: React.FC<Props> = (props) => {
     select
   } = props;
 
-  // const [custom, setCustom] = useState(false);
-
-  function handleOnDragEnd(result) {
-    const items = Array.from(users);
+  function handleOnDragEnd(result: any) {
+    const items = Array.from(users || []);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
