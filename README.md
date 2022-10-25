@@ -65,6 +65,7 @@ Add command to terminal:
 >
 npm run start
 
+
 Open application in your browser http://localhost:3000/
 Here is the implemented application with users.
 
