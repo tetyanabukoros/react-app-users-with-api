@@ -6,6 +6,8 @@ Here is the implemented application with users.
 
 The page implements pagination with the ability to switch the number of users on the page
 
+<img src="public/IMG_9701_MP4_AdobeExpress.gif">
+
 ![image](https://user-images.githubusercontent.com/94980714/197724558-6593127b-448b-4d18-9956-728c67b5a180.png)
 
 Sorting is implemented.
