@@ -28,6 +28,22 @@ By clicking on the Edit button you can change info about user or delete his data
 
 ![image](https://user-images.githubusercontent.com/94980714/197733921-33662990-7bdb-4d1f-9a68-24219666d633.png)
 
+-----------------
+
+Technologies used:
+
+React with Typescript
+
+CSS library: Material UI
+
+Client requests: Fetch
+
+Style: SCSS
+
+open sourse API: https://randomuser.me/
+
+--------------------
+
 Instructions how to run application locally:
 
 Use 14 version of node.js:
