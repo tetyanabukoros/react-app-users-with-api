@@ -1,7 +1,7 @@
 .filterBlock {
   border-radius: 12px;
   border: 1px solid #E5E5E5;
-  
+
   &__title {
     font-family: 'Work Sans';
     font-weight: 700;
@@ -193,8 +193,23 @@
     line-height: 24px;
     color: #999;
     border: 1px solid #121212;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
+    border-radius: 12px 0px 0px 12px;
+    padding: 14px;
+    width: 307px;
+    height: 52px;
+    box-sizing: border-box;
+    background-color: #F3F3F3;
+  }
+
+  &__input-active {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #121212;
+    background-color: #FFF;
+    border: 1px solid #121212;
+    border-radius: 12px 0px 0px 12px;
     padding: 14px;
     width: 307px;
     height: 52px;
@@ -210,6 +225,20 @@
     color: #121212;
     max-width: 200px;
     margin: 16px 0 1px 0
+  }
+
+  &__editButton {
+    background-color: #52228C;
+    width: 143px;
+    border-radius: 0px 12px 12px 0px;
+    border: none;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    cursor: pointer;
   }
 
   &__image {

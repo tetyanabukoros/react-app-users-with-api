@@ -29,7 +29,7 @@ The "custom sort" option allows using drug and drop to change the order of users
 
 By clicking on the Edit button you can change info about user or delete his data from the general list of users.
 
-![image](https://user-images.githubusercontent.com/94980714/197733921-33662990-7bdb-4d1f-9a68-24219666d633.png)
+![image](https://user-images.githubusercontent.com/94980714/197780532-ab5f8537-2654-4d5d-a714-116b12cf63e5.png)
 
 -----------------
 

@@ -9,19 +9,19 @@ interface Props {
   handleCloseEditForm: () => void;
   user: User;
   handleDeleteUser: (userId: string) => void;
-  handleRenameUser:  (userId: string, name: string) => void;
-  handleChangeEmail:  (userId: string, email: string) => void;
-  handleChangePhone:  (userId: string, phone: string) => void;
-  handleChangeCity:  (userId: string, city: string) => void;
-  handleChangeAdress:  (userId: string, adress: string) => void;
-  handleChangeDate:  (userId: string, date: string) => void;
+  handleRenameUser: (userId: string, name: string) => void;
+  handleChangeEmail: (userId: string, email: string) => void;
+  handleChangePhone: (userId: string, phone: string) => void;
+  handleChangeCity: (userId: string, city: string) => void;
+  handleChangeAdress: (userId: string, adress: string) => void;
+  handleChangeDate: (userId: string, date: string) => void;
 }
 
 export const EditModal: React.FC<Props> = (props) => {
-  const { 
-    openEditForm, 
-    handleCloseEditForm, 
-    user, 
+  const {
+    openEditForm,
+    handleCloseEditForm,
+    user,
     handleDeleteUser,
     handleRenameUser,
     handleChangeEmail,
@@ -98,7 +98,7 @@ export const EditModal: React.FC<Props> = (props) => {
           <Stack spacing={1.5}>
             <Stack direction="row">
               <input
-                className="modal__input"
+                className={`${editName ? 'modal__input-active' : 'modal__input'}`}
                 value={userName}
                 type="text"
                 onChange={(event) => {
@@ -107,20 +107,8 @@ export const EditModal: React.FC<Props> = (props) => {
                   }
                 }}
               />
-              <Button
-                style={{
-                  backgroundColor: "#52228C",
-                  borderTopRightRadius: "12px",
-                  borderBottomRightRadius: "12px",
-                  borderTopLeftRadius: "0",
-                  borderBottomLeftRadius: "0",
-                  fontSize: "16px",
-                  fontFamily: 'Poppins',
-                  textTransform: 'none',
-                  padding: "12px 57px",
-                  height: "52px",
-                }}
-                variant="contained"
+              <button
+                className="modal__editButton"
                 onClick={() => {
                   setEditName(true)
 
@@ -131,11 +119,11 @@ export const EditModal: React.FC<Props> = (props) => {
                 }}
               >
                 {!editName ? 'Edit' : 'Update'}
-              </Button>
+              </button>
             </Stack>
             <Stack direction="row">
               <input
-                className="modal__input"
+                className={`${editEmail ? 'modal__input-active' : 'modal__input'}`}
                 value={userEmail}
                 type="text"
                 onChange={(event) => {
@@ -144,20 +132,8 @@ export const EditModal: React.FC<Props> = (props) => {
                   }
                 }}
               />
-              <Button
-                style={{
-                  backgroundColor: "#52228C",
-                  borderTopRightRadius: "12px",
-                  borderBottomRightRadius: "12px",
-                  borderTopLeftRadius: "0",
-                  borderBottomLeftRadius: "0",
-                  fontSize: "16px",
-                  fontFamily: 'Poppins',
-                  textTransform: 'none',
-                  padding: "12px 57px",
-                  height: "52px",
-                }}
-                variant="contained"
+              <button
+                className="modal__editButton"
                 onClick={() => {
                   setEditEmail(true)
                   if (editEmail) {
@@ -167,11 +143,11 @@ export const EditModal: React.FC<Props> = (props) => {
                 }}
               >
                 {!editEmail ? 'Edit' : 'Update'}
-              </Button>
+              </button>
             </Stack>
             <Stack direction="row">
               <input
-                className="modal__input"
+                className={`${editPhone ? 'modal__input-active' : 'modal__input'}`}
                 value={userPhone}
                 type="text"
                 onChange={(event) => {
@@ -180,20 +156,8 @@ export const EditModal: React.FC<Props> = (props) => {
                   }
                 }}
               />
-              <Button
-                style={{
-                  backgroundColor: "#52228C",
-                  borderTopRightRadius: "12px",
-                  borderBottomRightRadius: "12px",
-                  borderTopLeftRadius: "0",
-                  borderBottomLeftRadius: "0",
-                  fontSize: "16px",
-                  fontFamily: 'Poppins',
-                  textTransform: 'none',
-                  padding: "12px 57px",
-                  height: "52px",
-                }}
-                variant="contained"
+              <button
+                className="modal__editButton"
                 onClick={() => {
                   setEditPhone(true)
                   if (editPhone) {
@@ -203,11 +167,11 @@ export const EditModal: React.FC<Props> = (props) => {
                 }}
               >
                 {!editPhone ? 'Edit' : 'Update'}
-              </Button>
+              </button>
             </Stack>
             <Stack direction="row">
               <input
-                className="modal__input"
+                className={`${editCity ? 'modal__input-active' : 'modal__input'}`}
                 value={userCity}
                 type="text"
                 onChange={(event) => {
@@ -216,20 +180,8 @@ export const EditModal: React.FC<Props> = (props) => {
                   }
                 }}
               />
-              <Button
-                style={{
-                  backgroundColor: "#52228C",
-                  borderTopRightRadius: "12px",
-                  borderBottomRightRadius: "12px",
-                  borderTopLeftRadius: "0",
-                  borderBottomLeftRadius: "0",
-                  fontSize: "16px",
-                  fontFamily: 'Poppins',
-                  textTransform: 'none',
-                  padding: "12px 57px",
-                  height: "52px",
-                }}
-                variant="contained"
+              <button
+                className="modal__editButton"
                 onClick={() => {
                   setEditCity(true)
                   if (editCity) {
@@ -239,11 +191,11 @@ export const EditModal: React.FC<Props> = (props) => {
                 }}
               >
                 {!editCity ? 'Edit' : 'Update'}
-              </Button>
+              </button>
             </Stack>
             <Stack direction="row">
               <input
-                className="modal__input"
+                className={`${editAdress ? 'modal__input-active' : 'modal__input'}`}
                 value={userAdress}
                 type="text"
                 onChange={(event) => {
@@ -252,20 +204,8 @@ export const EditModal: React.FC<Props> = (props) => {
                   }
                 }}
               />
-              <Button
-                style={{
-                  backgroundColor: "#52228C",
-                  borderTopRightRadius: "12px",
-                  borderBottomRightRadius: "12px",
-                  borderTopLeftRadius: "0",
-                  borderBottomLeftRadius: "0",
-                  fontSize: "16px",
-                  fontFamily: 'Poppins',
-                  textTransform: 'none',
-                  padding: "12px 57px",
-                  height: "52px",
-                }}
-                variant="contained"
+              <button
+                className="modal__editButton"
                 onClick={() => {
                   setEditAdress(true)
                   if (editAdress) {
@@ -275,11 +215,11 @@ export const EditModal: React.FC<Props> = (props) => {
                 }}
               >
                 {!editAdress ? 'Edit' : 'Update'}
-              </Button>
+              </button>
             </Stack>
             <Stack direction="row">
               <input
-                className="modal__input"
+                className={`${editDate ? 'modal__input-active' : 'modal__input'}`}
                 value={userDate}
                 type="text"
                 onChange={(event) => {
@@ -288,20 +228,8 @@ export const EditModal: React.FC<Props> = (props) => {
                   }
                 }}
               />
-              <Button
-                style={{
-                  backgroundColor: "#52228C",
-                  borderTopRightRadius: "12px",
-                  borderBottomRightRadius: "12px",
-                  borderTopLeftRadius: "0",
-                  borderBottomLeftRadius: "0",
-                  fontSize: "16px",
-                  fontFamily: 'Poppins',
-                  textTransform: 'none',
-                  padding: "12px 57px",
-                  height: "52px",
-                }}
-                variant="contained"
+              <button
+                className="modal__editButton"
                 onClick={() => {
                   setEditDate(true)
                   if (editDate) {
@@ -311,11 +239,11 @@ export const EditModal: React.FC<Props> = (props) => {
                 }}
               >
                 {!editDate ? 'Edit' : 'Update'}
-              </Button>
+              </button>
             </Stack>
           </Stack>
         </Stack>
       </Box>
-    </Modal>
+    </Modal >
   )
 }
