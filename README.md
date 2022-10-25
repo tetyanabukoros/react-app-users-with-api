@@ -27,3 +27,26 @@ The "custom sort" option allows using drug and drop to change the order of users
 By clicking on the Edit button you can change info about user or delete his data from the general list of users.
 
 ![image](https://user-images.githubusercontent.com/94980714/197733921-33662990-7bdb-4d1f-9a68-24219666d633.png)
+
+Instructions how to run application locally:
+
+Use 14 version of node.js:
+nvm use 14
+
+Clone the repository to your local machine, open terminal and clone repo with command bellow:
+
+>git clone https://github.com/tetyanabukoros/react-app-users-with-api.git
+
+Open project in terminal:
+
+>cd react-app-users-with-api
+
+Set up project and install necessary packages:
+
+>npm install
+
+Add command to terminal:
+>
+npm run start
+
+Open application in your browser http://localhost:3000/
