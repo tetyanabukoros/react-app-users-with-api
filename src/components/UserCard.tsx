@@ -54,7 +54,7 @@ export const UserCard: React.FC<Props> = (props) => {
             <Stack direction="column" justifyContent="space-between">
               <h2 className="usersList__name">{user.name.fullname}</h2>
               <p className="usersList__birth">{getBirthdayFormat(user.dob.date)}</p>
-              <p className="usersList__info">{adress}</p>
+              <p className="usersList__info">{user.location.city}, {adress}</p>
               <p className="usersList__info">{user.email}</p>
             </Stack>
           </Stack>
